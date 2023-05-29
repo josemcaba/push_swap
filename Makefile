@@ -14,7 +14,10 @@ NAME = push_swap
 
 HDR = 
 
-SRC	= 	push_swap.c		parser.c	swap_rules.c
+SRC	= 	push_swap.c			\
+		parser.c			\
+		rules_push_swap.c	\
+		rules_rot_rev.c
 		
 LIBFT = ./libft/libft.a
 

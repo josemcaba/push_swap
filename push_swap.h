@@ -6,12 +6,16 @@
 typedef struct s_stack
 {
 	int		**layer;
-	size_t	i;
+	ssize_t	i;
 }	t_stack;
 
 void	parse_argv(int argc, char **argv);
-void	sa(t_stack	*stack_a);
-void	sb(t_stack	*stack_b);
-void	ss(t_stack	*stack_a, t_stack *stack_b);
+void	push(t_stack *stack_dst, t_stack *stack_org);
+void	swap(t_stack *stack);
+void	dswap(t_stack *stack_a, t_stack *stack_b);
+void	rotate(t_stack *stack);
+void	drotate(t_stack *stack_a, t_stack *stack_b);
+void	reverse(t_stack *stack);
+void	dreverse(t_stack *stack_a, t_stack *stack_b);
 
 #endif
