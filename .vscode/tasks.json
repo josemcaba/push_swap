@@ -7,9 +7,14 @@
 			"command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
 			"args": [
 				"-fdiagnostics-color=always",
+				"-Wall",
+				"-Werror",
+				"-Wextra",
 				"-g",
 				"push_swap.c",
 				"parser.c",
+				"swap_rules.c",
+				"./libft/ft_isdigit.c",
 				"./libft/libft.a",
 				"-o",
 				"${fileDirname}\\push_swap.exe"

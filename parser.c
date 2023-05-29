@@ -36,16 +36,17 @@ static int	check_int_nbrs(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{	
+		j = 0;
+		if ((argv[i][j] == '+') || (argv[i][j] == '-'))
+			j++;
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]))
+				return (1);
+			j++;
+		}
 		if (ft_atoi(argv[i]) != ft_atol(argv[i]))
 			return (1);
-		if (ft_atoi(argv[i]) == 0)
-		{
-			j = 0;
-			while ((argv[i][j] == '0') && (argv[i][j] != '\0'))
-				j++;
-			if (argv[i][j] != '\0')
-				return (1);
-		}
 		i++;
 	}
 	return (0);
