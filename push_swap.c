@@ -33,27 +33,38 @@ void	build_stacks(t_stack *stack_a, t_stack *stack_b, int argc)
 int	main(int argc, char *argv[])
 {
 	int	i;
+	int	ver;
 	t_stack	stack_a;
 	t_stack	stack_b;
 
+	ver = 0;
+	if (!ft_strncmp("--verbose", argv[argc - 1], ft_strlen(argv[argc - 1])))
+	{
+		argc--;
+		ver = 1;
+	}
 	parse_argv(argc, &(*argv));
 	build_stacks(&stack_a, &stack_b, argc);
 	load_stacks(&stack_a, &stack_b, argc, &(*argv));
-	i = stack_a.i;
-	while (i >= 0)
+	if (ver)
 	{
-		ft_printf("%11i\n", stack_a.layer[i][0]);
-		i--;
+		i = stack_a.i;
+		while (i >= 0)
+		{
+			ft_printf("%11i\n", stack_a.layer[i][0]);
+			i--;
+		}
+		ft_printf("-----a-----   -----b-----\n");
+		sa(&stack_a);
+		ft_printf("sa\n");
+		i = stack_a.i;
+		while (i >= 0)
+		{
+			ft_printf("%11i\n", stack_a.layer[i][0]);
+			i--;
+		}
+		ft_printf("-----a-----   -----b-----\n");
 	}
-	ft_printf("-----a-----   -----b-----\n");
-	sa(&stack_a);
-	i = stack_a.i;
-	while (i >= 0)
-	{
-		ft_printf("%11i\n", stack_a.layer[i][0]);
-		i--;
-	}
-	ft_printf("-----a-----   -----b-----\n");
 	free(stack_a.layer);
 	free(stack_b.layer);
 	return (0);
