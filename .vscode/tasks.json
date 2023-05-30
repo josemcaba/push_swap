@@ -13,6 +13,7 @@
 				"-g",
 				"push_swap.c",
 				"parser.c",
+				"play.c",
 				"rules_push_swap.c",
 				"rules_rot_rev.c",
 				"./libft/ft_isdigit.c",

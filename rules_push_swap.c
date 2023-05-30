@@ -12,27 +12,46 @@
 
 #include "push_swap.h"
 
-void	push(t_stack *stack_dst, t_stack *stack_org)
+void	push(t_stack *dst, t_stack *src)
 {
-	if (stack_org->i == -1)
-		return ;
-	*stack_dst->layer[++stack_dst->i] = *stack_org->layer[stack_org->i];
-	stack_org->i--;
+	t_node	*tn;
+
+	if (!(src->stack))
+		return ;	
+	if (!(dst->stack))
+	{
+		dst->stack = src->stack;
+		src->stack = src->stack->next;
+		dst->stack->next = NULL;
+		dst->last = dst->stack;
+	}
+	else
+	{
+		tn = dst->stack;
+		dst->stack = src->stack;
+		src->stack = src->stack->next;
+		dst->stack->next = tn;
+	}
+	if (!(src->stack))
+		src->last = NULL;
 }
 
-void	swap(t_stack *stack)
+void	swap(t_stack *a)
 {
-	int	tmp;
+	t_node	*tn;
 
-	if (stack->i < 1)
+	if (!(a->stack))
 		return ;
-	tmp = *stack->layer[stack->i];
-	*stack->layer[stack->i] = *stack->layer[stack->i - 1];
-	*stack->layer[stack->i - 1] = tmp;
+	if (a->stack->next == NULL)
+		return ;
+	tn = a->stack;
+	a->stack = a->stack->next;
+	tn->next = a->stack->next;
+	a->stack->next = tn;
 }
 
-void	dswap(t_stack *stack_a, t_stack *stack_b)
+void	dswap(t_stack *a, t_stack *b)
 {
-	swap(stack_a);
-	swap(stack_b);
+	swap(a);
+	swap(b);
 }

@@ -12,66 +12,71 @@
 
 #include "push_swap.h"
 
-void	ver(t_stack *stack_a, t_stack *stack_b)
+void	ver(t_node *a_stack, t_node *b_stack)
 {
-	ssize_t	i;
+	t_node	*na;
+	t_node	*nb;
 
-	i = stack_a->i;
-	if (stack_b->i > i)
-		i = stack_b->i;
-	while (i >= 0)
+	na = a_stack;
+	nb = b_stack;
+	while (na || nb)
 	{
-		if (i <= stack_a->i)
-			ft_printf("%11i", stack_a->layer[i][0]);
+		if (na)
+		{
+			ft_printf("%11i", na->nbr);
+			na = na->next;
+			if (!nb)
+				ft_printf("\n");
+		}
 		else
 			ft_printf("%11s", "");
-		if (i <= stack_b->i)
-			ft_printf("%14i\n", stack_b->layer[i][0]);
-		else
-			ft_printf("%11s\n", "");
-		i--;
+		if (nb)
+		{
+			ft_printf("%14i\n", nb->nbr);
+			nb = nb->next;
+		}
 	}
 	ft_printf("-----a-----   -----b-----\n");
 }
 
-void	exec(char *order, t_stack *stack_a, t_stack *stack_b)
+void	exec(char *order, t_stack *a, t_stack *b)
 {
 	if (!ft_strncmp("sa\n", order, ft_strlen(order)))
-		swap(stack_a);
+		swap(&(*a));
 	if (!ft_strncmp("sb\n", order, ft_strlen(order)))
-		swap(stack_b);
+		swap(&(*b));
 	if (!ft_strncmp("ss\n", order, ft_strlen(order)))
-		dswap(stack_a, stack_b);
+		dswap(&(*a), &(*b));
 	if (!ft_strncmp("pa\n", order, ft_strlen(order)))
-		push(stack_a, stack_b);
+		push(&(*a), &(*b));
 	if (!ft_strncmp("pb\n", order, ft_strlen(order)))
-		push(stack_b, stack_a);
-	if (!ft_strncmp("ra\n", order, ft_strlen(order)))
-		rotate(stack_a);
-	if (!ft_strncmp("rb\n", order, ft_strlen(order)))
-		rotate(stack_b);
-	if (!ft_strncmp("rr\n", order, ft_strlen(order)))
-		drotate(stack_a, stack_b);
-	if (!ft_strncmp("rra\n", order, ft_strlen(order)))
-		reverse(stack_a);
-	if (!ft_strncmp("rrb\n", order, ft_strlen(order)))
-		reverse(stack_b);
-	if (!ft_strncmp("rrr\n", order, ft_strlen(order)))
-		dreverse(stack_a, stack_b);
+		push(&(*b), &(*a));
+ 	// if (!ft_strncmp("ra\n", order, ft_strlen(order)))
+ 	// 	rotate(&(*stack_a), &(*last_a));
+ 	// if (!ft_strncmp("rb\n", order, ft_strlen(order)))
+ 	// 	rotate(&(*stack_b), &(*last_b));
+ 	// if (!ft_strncmp("rr\n", order, ft_strlen(order)))
+ 	// 	drotate(&(*stack_a), &(*stack_b), &(*last_a), &(*last_b));
+ 	// if (!ft_strncmp("rra\n", order, ft_strlen(order)))
+ 	// 	reverse(&(*stack_a), &(*last_a));
+ 	// if (!ft_strncmp("rrb\n", order, ft_strlen(order)))
+ 	// 	reverse(&(*stack_b), &(*last_b));
+ 	// if (!ft_strncmp("rrr\n", order, ft_strlen(order)))
+ 	// 	dreverse(&(*stack_a), &(*stack_b), &(*last_a), &(*last_b));
 }
 
-void	play(t_stack *stack_a, t_stack *stack_b)
+void	play(t_stack *a, t_stack *b)
 {
-	char	*order;
+ 	char	*order;
 
-	ver(stack_a, stack_b);
-	order = get_next_line(0);
-	while (order)
-	{
-		ft_printf("%s", order);
-		exec(order, stack_a, stack_b);
-		ver(stack_a, stack_b);
-		order = get_next_line(0);
-	}
-	free(order);
+	ver(a->stack, b->stack);
+ 	order = get_next_line(0);
+ 	while (order && order[0] != '\n')
+ 	{
+ 		ft_printf("%s", order);
+ 		exec(order, a, b);
+ 		ver(a->stack, b->stack);
+ 		order = get_next_line(0);
+ 	}
+ 	free(order);
 }

@@ -12,48 +12,46 @@
 
 #include "push_swap.h"
 
-void	rotate(t_stack *stack)
+void	rotate(t_stack **stack, t_stack **last)
 {
-	int	first;
-	int	j;
-
-	if (stack->i < 1)
+	if (!(*stack))
 		return ;
-	first = *stack->layer[stack->i];
-	j = stack->i;
-	while (j > 0)
-	{
-		*stack->layer[j] = *stack->layer[j - 1];
-		j--;
-	}
-	*stack->layer[j] = first;
-}
-
-void	drotate(t_stack *stack_a, t_stack *stack_b)
-{
-	rotate(stack_a);
-	rotate(stack_b);
-}
-
-void	reverse(t_stack *stack)
-{
-	int	last;
-	int	j;
-
-	if (stack->i < 1)
+	if ((*stack)->next == NULL)
 		return ;
-	last = *stack->layer[0];
-	j = 0;
-	while (j < stack->i)
-	{
-		*stack->layer[j] = *stack->layer[j + 1];
-		j++;
-	}
-	*stack->layer[j] = last;
+	(*last)->next = *stack;
+	*stack = (*stack)->next;
+	*last = (*last)->next;
+	(*last)->next = NULL;
 }
 
-void	dreverse(t_stack *stack_a, t_stack *stack_b)
+void	drotate(t_stack **stack_a, t_stack **stack_b, t_stack **last_a, t_stack **last_b)
 {
-	reverse(stack_a);
-	reverse(stack_b);
+	rotate(stack_a, last_a);
+	rotate(stack_b, last_b);
+}
+
+void	reverse(t_stack **stack, t_stack **last)
+{
+	t_stack	*tn;
+
+	if (!(*stack))
+		return ;
+	if ((*stack)->next == NULL)
+		return ;
+	tn = *last;
+	(*last)->next = *stack;
+	*last = NULL;
+	tn++;
+	tn--;
+
+
+	*stack = (*stack)->next;
+	*last = (*last)->next;
+	(*last)->next = NULL;
+}
+
+void	dreverse(t_stack **stack_a, t_stack **stack_b, t_stack **last_a, t_stack **last_b)
+{
+	reverse(stack_a, last_a);
+	reverse(stack_b, last_b);
 }
