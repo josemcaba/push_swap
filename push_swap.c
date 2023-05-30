@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/30 02:02:12 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:41:50 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_node	*load_nodes(int argc, char *argv[], t_stack *a)
 	}
 	a->last = &(nodes[i - 1]);
 	a->blast = &(nodes[i - 2]);
-	return (nodes);	
+	return (nodes);
 }
 
 int	main(int argc, char *argv[])

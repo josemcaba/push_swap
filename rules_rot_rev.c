@@ -3,55 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   rules_rot_rev.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocaball <jocaball@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:45:48 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/30 01:58:29 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/05/31 01:04:57 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rotate(t_stack **stack, t_stack **last)
+void	rotate(t_stack *p)
 {
-	if (!(*stack))
+	if (!(p->stack))
 		return ;
-	if ((*stack)->next == NULL)
+	if ((p->stack)->next == NULL)
 		return ;
-	(*last)->next = *stack;
-	*stack = (*stack)->next;
-	*last = (*last)->next;
-	(*last)->next = NULL;
+	p->last->next = p->stack;
+	p->stack = p->stack->next;
+	p->last = p->last->next;
+	p->last->next = NULL;
 }
 
-void	drotate(t_stack **stack_a, t_stack **stack_b, t_stack **last_a, t_stack **last_b)
+void	drotate(t_stack *a, t_stack *b)
 {
-	rotate(stack_a, last_a);
-	rotate(stack_b, last_b);
+	rotate(a);
+	rotate(b);
 }
 
-void	reverse(t_stack **stack, t_stack **last)
+void	reverse(t_stack *p)
 {
-	t_stack	*tn;
+	t_node	*tn;
 
-	if (!(*stack))
+	if (!(p->stack))
 		return ;
-	if ((*stack)->next == NULL)
+	if ((p->stack)->next == NULL)
 		return ;
-	tn = *last;
-	(*last)->next = *stack;
-	*last = NULL;
+	tn = p->last;
+	p->last->next = p->stack;
+	p->last = NULL;
+
 	tn++;
 	tn--;
-
-
-	*stack = (*stack)->next;
-	*last = (*last)->next;
-	(*last)->next = NULL;
 }
 
-void	dreverse(t_stack **stack_a, t_stack **stack_b, t_stack **last_a, t_stack **last_b)
+void	dreverse(t_stack *a, t_stack *b)
 {
-	reverse(stack_a, last_a);
-	reverse(stack_b, last_b);
+	reverse(a);
+	reverse(b);
 }

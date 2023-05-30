@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rules_push_swap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocaball <jocaball@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:47:13 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/30 01:57:42 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:45:45 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	push(t_stack *dst, t_stack *src)
 	t_node	*tn;
 
 	if (!(src->stack))
-		return ;	
+		return ;
 	if (!(dst->stack))
 	{
 		dst->stack = src->stack;
@@ -36,18 +36,18 @@ void	push(t_stack *dst, t_stack *src)
 		src->last = NULL;
 }
 
-void	swap(t_stack *a)
+void	swap(t_stack *p)
 {
 	t_node	*tn;
 
-	if (!(a->stack))
+	if (!(p->stack))
 		return ;
-	if (a->stack->next == NULL)
+	if (p->stack->next == NULL)
 		return ;
-	tn = a->stack;
-	a->stack = a->stack->next;
-	tn->next = a->stack->next;
-	a->stack->next = tn;
+	tn = p->stack;
+	p->stack = p->stack->next;
+	tn->next = p->stack->next;
+	p->stack->next = tn;
 }
 
 void	dswap(t_stack *a, t_stack *b)
