@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
+/*   Updated: 2023/05/30 02:03:38 by jocaball         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -10,6 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 void	parse_argv(int argc, char **argv);
+void	play(t_stack *stack_a, t_stack *stack_b);
 void	push(t_stack *stack_dst, t_stack *stack_org);
 void	swap(t_stack *stack);
 void	dswap(t_stack *stack_a, t_stack *stack_b);

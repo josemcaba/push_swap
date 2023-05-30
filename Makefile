@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jocaball <jocaball@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/05/27 12:40:42 by jocaball         ###   ########.fr        #
+#    Updated: 2023/05/30 02:17:27 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ HDR =
 SRC	= 	push_swap.c			\
 		parser.c			\
 		rules_push_swap.c	\
-		rules_rot_rev.c
+		rules_rot_rev.c		\
+		play.c
 		
 LIBFT = ./libft/libft.a
 

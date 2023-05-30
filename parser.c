@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
+/*   Updated: 2023/05/30 02:10:54 by jocaball         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 // The ft_atol() function converts the initial portion of the string pointed to
 // by str to long representation.
 
-long long	ft_atol(const char *str)
+static long	ft_atol(const char *str)
 {
-	long long	sign;
-	long long	number;
+	long	sign;
+	long	number;
 
 	while (((*str >= '\t') && (*str <= '\r')) || (*str == ' '))
 		str++;
