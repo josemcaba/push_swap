@@ -14,16 +14,15 @@
 
 void	push(t_stack *dst, t_stack *src)
 {
-	t_node	*tn;
+	t_stack	*tn;
 
-	if (!(src->stack))
+	if (!(src))
 		return ;
-	if (!(dst->stack))
+	if (!(dst))
 	{
-		dst->stack = src->stack;
-		src->stack = src->stack->next;
-		dst->stack->next = NULL;
-		dst->last = dst->stack;
+		dst = src;
+		dst->next = NULL;
+		src = src->next;
 	}
 	else
 	{

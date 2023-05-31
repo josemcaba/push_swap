@@ -12,7 +12,7 @@
 
 NAME = push_swap
 
-HDR = 
+HDR = push_swap.h
 
 SRC	= 	push_swap.c			\
 		parser.c			\
@@ -32,7 +32,7 @@ all : make_ft $(NAME)
 make_ft:
 	$(MAKE_LIBFT)
 
-$(NAME): $(LIBFT) $(SRC)
+$(NAME): $(LIBFT) $(SRC) $(HDR)
 	$(CC) $(CFLAGS) $(SRC) $(LIBFT)
 	@echo "-------> Program $(NAME) has been created"
 

@@ -3,3 +3,4 @@ libft/*.a
 push_swap
 push_swap.exe
 *.o
+.vscode/*

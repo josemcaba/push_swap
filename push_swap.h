@@ -15,17 +15,10 @@
 
 # include "./libft/libft.h"
 
-typedef struct s_node
-{
-	int				nbr;
-	struct s_node	*next;
-}	t_node;
-
 typedef struct s_stack
 {
-	t_node	*stack;
-	t_node	*last;
-	t_node	*blast;
+	int				nbr;
+	struct s_stack	*next;
 }	t_stack;
 
 void	parse_argv(int argc, char **argv);
