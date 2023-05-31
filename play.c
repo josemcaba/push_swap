@@ -6,19 +6,19 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/31 01:10:30 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:48:27 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ver(t_node *a_stack, t_node *b_stack)
+static void	ver(t_stack *a, t_stack *b)
 {
-	t_node	*na;
-	t_node	*nb;
+	t_stack	*na;
+	t_stack	*nb;
 
-	na = a_stack;
-	nb = b_stack;
+	na = a;
+	nb = b;
 	while (na || nb)
 	{
 		if (na)
@@ -69,13 +69,13 @@ void	play(t_stack *a, t_stack *b)
 {
 	char	*order;
 
-	ver(a->stack, b->stack);
+	ver(a, b);
 	order = get_next_line(0);
 	while (order && order[0] != '\n')
 	{
 		ft_printf("%s", order);
 		exec(order, a, b);
-		ver(a->stack, b->stack);
+		ver(a, b);
 		order = get_next_line(0);
 	}
 	free(order);

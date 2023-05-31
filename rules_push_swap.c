@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:47:13 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/31 00:45:45 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:40:06 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,24 @@ void	push(t_stack *dst, t_stack *src)
 	}
 	else
 	{
-		tn = dst->stack;
-		dst->stack = src->stack;
-		src->stack = src->stack->next;
-		dst->stack->next = tn;
+		tn = dst;
+		dst = src;
+		src = src->next;
+		dst->next = tn;
 	}
-	if (!(src->stack))
-		src->last = NULL;
 }
 
 void	swap(t_stack *p)
 {
-	t_node	*tn;
+	int	tmp;
 
-	if (!(p->stack))
+	if (p == NULL)
 		return ;
-	if (p->stack->next == NULL)
+	if (p->next == NULL)
 		return ;
-	tn = p->stack;
-	p->stack = p->stack->next;
-	tn->next = p->stack->next;
-	p->stack->next = tn;
+	tmp = p->nbr;
+	p->nbr = p->next->nbr;
+	p->next->nbr = tmp;
 }
 
 void	dswap(t_stack *a, t_stack *b)
