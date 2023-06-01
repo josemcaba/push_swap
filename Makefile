@@ -6,7 +6,7 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/05/30 02:17:27 by jocaball         ###   ########.fr        #
+#    Updated: 2023/06/01 13:31:33 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ make_ft:
 
 $(NAME): $(LIBFT) $(SRC) $(HDR)
 	$(CC) $(CFLAGS) $(SRC) $(LIBFT)
-	@echo "-------> Program $(NAME) has been created"
+	@echo "\n-------> Program $(NAME) has been created <-------\n"
 
 clean :
 	rm -f $(OBJ)

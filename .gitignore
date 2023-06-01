@@ -4,3 +4,6 @@ push_swap
 push_swap.exe
 *.o
 .vscode/*
+.DS_Store
+push_swap.out.dSYM
+push_swap.dSYM

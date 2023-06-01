@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:45:48 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/31 21:05:20 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:29:28 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,17 @@ t_stack	*get_last(t_stack *p)
 
 void	rotate(t_stack *p)
 {
-	t_stack	last;
+	t_stack	*last;
 
-	if ((p == NULL))
+	if (p == NULL)
 		return ;
 	if (p->next == NULL)
 		return ;
 	last = get_last(p);
-		
-
-	
-	p->last->next = p->stack;
-	p->stack = p->stack->next;
-	p->last = p->last->next;
-	p->last->next = NULL;
+	last->next = p;
+	p = p->next;
+	last = last->next;
+	last->next = NULL;
 }
 
 void	drotate(t_stack *a, t_stack *b)
@@ -48,16 +45,15 @@ void	drotate(t_stack *a, t_stack *b)
 
 void	reverse(t_stack *p)
 {
-	t_node	*tn;
+	t_stack	*tn;
 
-	if (!(p->stack))
+	if (p == NULL)
 		return ;
-	if ((p->stack)->next == NULL)
+	if (p->next == NULL)
 		return ;
-	tn = p->last;
-	p->last->next = p->stack;
-	p->last = NULL;
-
+	tn = get_last(p);
+	tn->next = p;
+	tn = NULL;
 	tn++;
 	tn--;
 }
