@@ -6,7 +6,7 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/06/02 19:44:19 by jocaball         ###   ########.fr        #
+#    Updated: 2023/06/02 22:44:31 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SRC_BONUS	= 	checker.c			\
 				rules_rot_rev.c		\
 				play_bonus.c
 		
+OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)
+
 LIBFT = ./libft/libft.a
 
 MAKE_LIBFT = @make -C ./libft
