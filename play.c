@@ -6,38 +6,11 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 18:42:17 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 22:35:11 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	ver(t_stack **a, t_stack **b)
-{
-	t_stack	*na;
-	t_stack	*nb;
-
-	na = *a;
-	nb = *b;
-	while (na || nb)
-	{
-		if (na)
-		{
-			ft_printf("%11i", na->nbr);
-			na = na->next;
-			if (!nb)
-				ft_printf("\n");
-		}
-		else
-			ft_printf("%11s", "");
-		if (nb)
-		{
-			ft_printf("%14i\n", nb->nbr);
-			nb = nb->next;
-		}
-	}
-	ft_printf("-----a-----   -----b-----\n");
-}
 
 static void	exec(char *order, t_stack **a, t_stack **b)
 {
@@ -65,18 +38,33 @@ static void	exec(char *order, t_stack **a, t_stack **b)
 		dreverse(a, b);
 }
 
-void	play(t_stack **a, t_stack **b)
-{
-	char	*order;
 
-	ver(a, b);
-	order = get_next_line(0);
-	while (order && order[0] != 'q')
+int	find(int nbr, t_stack *a, t_stack *b)
+{
+	int	i;
+
+	(void)b;
+	i = 0;
+	while (a)
 	{
-		ft_printf("%s", order);
-		exec(order, a, b);
-		ver(a, b);
-		order = get_next_line(0);
+		if (a->nbr == nbr)
+			break ;
+		a = a->next;
+		i++;
 	}
-	free(order);
+	return (i);
+}
+
+void	sort(t_stack **a, t_stack **b, int *vector, int count)
+{
+	int	i;
+
+	(void)count;
+	i = find(vector[0], *a, *b);
+	while ((i >= (count / 2)) && (i <= (count - 2)))
+	{
+		exec("rra", a, b);
+		write(1, "rra\n", 4);
+		i++;
+	}
 }
