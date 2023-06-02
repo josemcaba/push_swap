@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/30 02:10:54 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:39:22 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	parse_argv(int argc, char **argv)
 {
 	int	err;
 
-	err = check_int_nbrs(argc, &(*argv));
+	err = check_int_nbrs(argc, argv);
 	if (!err)
-		err = check_dup(argc, &(*argv));
+		err = check_dup(argc, argv);
 	if (err)
 	{
 		ft_printf("Error\n");
