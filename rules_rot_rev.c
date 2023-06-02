@@ -6,59 +6,58 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:45:48 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/01 13:29:28 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:59:12 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*get_last(t_stack *p)
+t_stack	*get_blast(t_stack *p)
 {
 	t_stack	*np;
 
 	np = p;
-	while (np->next)
+	while (np->next->next)
 		np = np->next;
 	return (np);
 }
 
-void	rotate(t_stack *p)
+void	rotate(t_stack **p)
 {
 	t_stack	*last;
 
-	if (p == NULL)
+	if (*p == NULL)
 		return ;
-	if (p->next == NULL)
+	if ((*p)->next == NULL)
 		return ;
-	last = get_last(p);
-	last->next = p;
-	p = p->next;
+	last = get_blast(*p)->next;
+	last->next = *p;
+	*p = (*p)->next;
 	last = last->next;
 	last->next = NULL;
 }
 
-void	drotate(t_stack *a, t_stack *b)
+void	drotate(t_stack **a, t_stack **b)
 {
 	rotate(a);
 	rotate(b);
 }
 
-void	reverse(t_stack *p)
+void	reverse(t_stack **p)
 {
-	t_stack	*tn;
+	t_stack	*blast;
 
-	if (p == NULL)
+	if (*p == NULL)
 		return ;
-	if (p->next == NULL)
+	if ((*p)->next == NULL)
 		return ;
-	tn = get_last(p);
-	tn->next = p;
-	tn = NULL;
-	tn++;
-	tn--;
+	blast = get_blast(*p);
+	blast->next->next = *p;
+	*p = blast->next;
+	blast->next = NULL;
 }
 
-void	dreverse(t_stack *a, t_stack *b)
+void	dreverse(t_stack **a, t_stack **b)
 {
 	reverse(a);
 	reverse(b);

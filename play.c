@@ -6,19 +6,19 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/01 13:29:03 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:01:03 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ver(t_stack *a, t_stack *b)
+static void	ver(t_stack **a, t_stack **b)
 {
 	t_stack	*na;
 	t_stack	*nb;
 
-	na = a;
-	nb = b;
+	na = *a;
+	nb = *b;
 	while (na || nb)
 	{
 		if (na)
@@ -39,39 +39,39 @@ static void	ver(t_stack *a, t_stack *b)
 	ft_printf("-----a-----   -----b-----\n");
 }
 
-static void	exec(char *order, t_stack *a, t_stack *b)
+static void	exec(char *order, t_stack **a, t_stack **b)
 {
 	if (!ft_strncmp("sa\n", order, ft_strlen(order)))
-		swap(&(*a));
+		swap(a);
 	if (!ft_strncmp("sb\n", order, ft_strlen(order)))
-		swap(&(*b));
+		swap(b);
 	if (!ft_strncmp("ss\n", order, ft_strlen(order)))
-		dswap(&(*a), &(*b));
+		dswap(a, b);
 	if (!ft_strncmp("pa\n", order, ft_strlen(order)))
-		push(&(*a), &(*b));
+		push(a, b);
 	if (!ft_strncmp("pb\n", order, ft_strlen(order)))
-		push(&(*b), &(*a));
+		push(b, a);
 	if (!ft_strncmp("ra\n", order, ft_strlen(order)))
-		rotate(&(*a));
+		rotate(a);
 	if (!ft_strncmp("rb\n", order, ft_strlen(order)))
-		rotate(&(*b));
+		rotate(b);
 	if (!ft_strncmp("rr\n", order, ft_strlen(order)))
-		drotate(&(*a), &(*b));
+		drotate(a, b);
 	if (!ft_strncmp("rra\n", order, ft_strlen(order)))
-		reverse(&(*a));
+		reverse(a);
 	if (!ft_strncmp("rrb\n", order, ft_strlen(order)))
-		reverse(&(*b));
+		reverse(b);
 	if (!ft_strncmp("rrr\n", order, ft_strlen(order)))
-		dreverse(&(*a), &(*b));
+		dreverse(a, b);
 }
 
-void	play(t_stack *a, t_stack *b)
+void	play(t_stack **a, t_stack **b)
 {
 	char	*order;
 
 	ver(a, b);
 	order = get_next_line(0);
-	while (order && order[0] != '\n')
+	while (order && order[0] != 'q')
 	{
 		ft_printf("%s", order);
 		exec(order, a, b);

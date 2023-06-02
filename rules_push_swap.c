@@ -6,47 +6,48 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:47:13 by jocaball          #+#    #+#             */
-/*   Updated: 2023/05/31 20:40:06 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:55:21 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack *dst, t_stack *src)
+void	push(t_stack **dst, t_stack **src)
 {
 	t_stack	*tn;
 
-	if (!(src))
+	if (!(*src))
 		return ;
-	if (!(dst))
+	if (!(*dst))
 	{
-		dst = src;
-		dst->next = NULL;
-		src = src->next;
+		*dst = *src;
+		*src = (*src)->next;
+		(*dst)->next = NULL;
 	}
 	else
 	{
-		tn = dst;
-		dst = src;
-		src = src->next;
-		dst->next = tn;
+		tn = *dst;
+		*dst = *src;
+		*src = (*src)->next;
+		(*dst)->next = tn;
 	}
 }
 
-void	swap(t_stack *p)
+void	swap(t_stack **p)
 {
-	int	tmp;
+	t_stack	*tmp;
 
-	if (p == NULL)
+	if (*p == NULL)
 		return ;
-	if (p->next == NULL)
+	if ((*p)->next == NULL)
 		return ;
-	tmp = p->nbr;
-	p->nbr = p->next->nbr;
-	p->next->nbr = tmp;
+	tmp = *p;
+	*p = (*p)->next;
+	tmp->next = (*p)->next;
+	(*p)->next = tmp;
 }
 
-void	dswap(t_stack *a, t_stack *b)
+void	dswap(t_stack **a, t_stack **b)
 {
 	swap(a);
 	swap(b);
