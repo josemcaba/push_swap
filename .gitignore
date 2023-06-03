@@ -1,10 +1,11 @@
 libft/*.o
 libft/*.a
 push_swap
-push_swap.exe
+*.exe
 *.o
 .vscode/*
 .DS_Store
 push_swap.out.dSYM
 push_swap.dSYM
 checker
+*.txt

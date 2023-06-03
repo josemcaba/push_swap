@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,28 +12,54 @@
 
 #include "push_swap.h"
 
-static t_stack	*load_nodes(int argc, char *argv[])
+static void	ver(t_stack *stack_a, t_stack *stack_b)
 {
-	t_stack	*nodes;
-	int		i;
+	t_stack	*na;
+	t_stack	*nb;
 
-	nodes = malloc((argc - 1) * sizeof(t_stack));
-	if (!nodes)
-		exit (0);
-	i = 0;
-	while (i <= (argc - 2))
+	na = stack_a;
+	nb = stack_b;
+	while (na || nb)
 	{
-		nodes[i].nbr = ft_atoi(argv[i + 1]);
-		if (i == (argc - 2))
-			nodes[i].next = NULL;
+		if (na)
+		{
+			ft_printf("%11i", na->nbr);
+			na = na->next;
+			if (!nb)
+				ft_printf("\n");
+		}
 		else
-			nodes[i].next = &nodes[i + 1];
-		i++;
+			ft_printf("%11s", "");
+		if (nb)
+		{
+			ft_printf("%14i\n", nb->nbr);
+			nb = nb->next;
+		}
 	}
-	return (nodes);
+	ft_printf("-----a-----   -----b-----\n");
 }
 
-int	check(t_stack **a, t_stack **b, int count)
+static void	play(t_stack **a, t_stack **b)
+{
+	char	*order;
+
+	if (VER)
+		ver(*a, *b);
+	order = get_next_line(0);
+	while (order && order[0] != 'q')
+	{
+		exec(order, a, b);
+		if (VER)
+		{
+			ft_printf("%s", order);
+			ver(*a, *b);
+		}
+		order = get_next_line(0);
+	}
+	free(order);
+}
+
+static int	final_check(t_stack **a, t_stack **b, int count)
 {
 	int	i;
 
@@ -65,7 +91,7 @@ int	main(int argc, char *argv[])
 	a = nodes;
 	b = NULL;
 	play(&a, &b);
-	if (check(&a, &b, argc - 1))
+	if (final_check(&a, &b, argc - 1))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");

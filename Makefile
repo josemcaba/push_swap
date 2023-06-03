@@ -18,15 +18,16 @@ HDR = push_swap.h
 
 SRC	= 	push_swap.c			\
 		parser.c			\
+		load_nodes.c 		\
 		rules_push_swap.c	\
 		rules_rot_rev.c		\
 		play.c
 
 SRC_BONUS	= 	checker.c			\
 				parser.c			\
+				load_nodes.c 		\
 				rules_push_swap.c	\
-				rules_rot_rev.c		\
-				play_bonus.c
+				rules_rot_rev.c	
 		
 OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)
 
@@ -61,5 +62,3 @@ bonus : make_ft $(NAME_BONUS)
 $(NAME_BONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
 	$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "\n-------> Program $(NAME_BONUS) has been created <-------\n"
-
-.PHONY: all make_ft clean fclean re bonus

@@ -21,9 +21,13 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
+# ifndef VER
+#  define VER 1
+# endif
+
 void	parse_argv(int argc, char **argv);
-void	sort(t_stack **a, t_stack **b, int *vector, int count);
-void	play(t_stack **a, t_stack **b);
+t_stack	*load_nodes(int argc, char **argv);
+void	exec(char *order, t_stack **a, t_stack **b);
 void	push(t_stack **dst, t_stack **src);
 void	swap(t_stack **p);
 void	dswap(t_stack **a, t_stack **b);
@@ -31,5 +35,6 @@ void	rotate(t_stack **p);
 void	drotate(t_stack **a, t_stack **b);
 void	reverse(t_stack **p);
 void	dreverse(t_stack **a, t_stack **b);
+void	sort(t_stack **a, t_stack **b, int *vector, int count);
 
 #endif
