@@ -21,12 +21,14 @@ SRC	= 	push_swap.c			\
 		load_nodes.c 		\
 		rules_push_swap.c	\
 		rules_rot_rev.c		\
-		play.c
+		check_order.c		\
+		sort.c
 
 SRC_BONUS	= 	checker.c			\
 				parser.c			\
 				load_nodes.c 		\
 				rules_push_swap.c	\
+				check_order.c		\
 				rules_rot_rev.c	
 		
 OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)

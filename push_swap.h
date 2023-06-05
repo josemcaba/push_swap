@@ -35,6 +35,7 @@ void	rotate(t_stack **p);
 void	drotate(t_stack **a, t_stack **b);
 void	reverse(t_stack **p);
 void	dreverse(t_stack **a, t_stack **b);
-void	sort(t_stack **a, t_stack **b, int *vector, int count);
+int		check_order(t_stack *a, t_stack *b, int *count);
+void	sort(t_stack **a, t_stack **b, int *vector);
 
 #endif

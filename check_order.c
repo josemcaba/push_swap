@@ -1,43 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   play.c                                             :+:      :+:    :+:   */
+/*   check_order.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 22:35:11 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:40:46 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find(int nbr, t_stack *a, t_stack *b)
+int	check_order(t_stack *a, t_stack *b, int *count)
 {
-	int	i;
-
-	(void)b;
-	i = 0;
-	while (a)
+	int	order;
+	
+	order = 1;
+	count[0] = 1;
+	while (a->next)
 	{
-		if (a->nbr == nbr)
-			break ;
+		if (a->nbr > a->next->nbr)
+			order = 0;
 		a = a->next;
-		i++;
+		count[0]++;
 	}
-	return (i);
-}
-
-void	sort(t_stack **a, t_stack **b, int *vector, int count)
-{
-	int	i;
-
-	(void)count;
-	i = find(vector[0], *a, *b);
-	while ((i >= (count / 2)) && (i <= (count - 2)))
+	count[1] = 0;
+	if (b)
 	{
-		exec("rra", a, b);
-		write(1, "rra\n", 4);
-		i++;
+		order = 0;
+		count[1] = 1;
+		while (b->next)
+			count[1]++;
 	}
+	return (order);
 }

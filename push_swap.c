@@ -55,7 +55,7 @@ int	main(int argc, char *argv[])
 	vector = sort_vector(nodes, argc - 1);
 	a = nodes;
 	b = NULL;
-	sort(&a, &b, vector, argc - 1);
+	sort(&a, &b, vector);
 	free(vector);
 	free(nodes);
 	return (0);
