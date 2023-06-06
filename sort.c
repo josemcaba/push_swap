@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 22:35:11 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/06 21:25:49 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	find(int nbr, t_stack *a, t_stack *b)
 	{
 		j++;
 		if (a->nbr == nbr)
-			return (j) ;
+			return (j);
 		a = a->next;
 	}
 	j = 0;
@@ -29,51 +29,57 @@ int	find(int nbr, t_stack *a, t_stack *b)
 	{
 		j++;
 		if (b->nbr == nbr)
-			return (-j) ;
+			return (-j);
 		b = b->next;
 	}
 	return (0);
 }
 
-void	move_up_a(t_stack **a, t_stack **b, int	count, int pos)
+void	move_up_a(t_stack **a, t_stack **b, int count, int pos)
 {
 	while ((count - pos) >= 0)
 	{
-		write(1, "rra\n", 4);			
+		write(1, "rra\n", 4);
 		exec("rra", a, b);
 		if ((count - pos) > 0)
 		{
 			write(1, "pb\n", 3);
 			exec("pb", a, b);
-			if ((*b)->next != NULL)
+			if ((*b)->next != 0)
+			{
 				if (get_blast(*b)->next->nbr > (*b)->nbr)
 				{
 					write(1, "rb\n", 3);
 					exec("rb", a, b);
 				}
+			}
 		}
-		count--;	
+		count--;
 	}
 }
 
-void	move_up_b(t_stack **a, t_stack **b, int	count, int pos)
+void	move_up_b(t_stack **a, t_stack **b, int count, int pos)
 {
 	if (pos > 1)
 	{
 		if (pos <= (count / 2))
+		{
 			while (pos <= (count / 2))
 			{
 				write(1, "rb\n", 3);
 				exec("rb", a, b);
 				pos++;
 			}
+		}
 		else
+		{
 			while (count + 1 - pos)
 			{
-				write(1, "rrb\n", 4);			
+				write(1, "rrb\n", 4);
 				exec("rrb", a, b);
 				pos++;
 			}
+		}
 	}
 	write(1, "pa\n", 3);
 	exec("pa", a, b);
@@ -82,7 +88,7 @@ void	move_up_b(t_stack **a, t_stack **b, int	count, int pos)
 void	place_first_nbr(t_stack **a, t_stack **b, int nbr)
 {
 	int	count[2];
-	int i;
+	int	i;
 
 	if (!check_order(*a, *b, count))
 	{
@@ -99,7 +105,7 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr)
 		{
 			while (count[0] + 1 - i)
 			{
-				write(1, "rra\n", 4);			
+				write(1, "rra\n", 4);
 				exec("rra", a, b);
 				i++;
 			}
@@ -113,15 +119,16 @@ void	sort(t_stack **a, t_stack **b, int *vector)
 	int	j;
 	int	count[2];
 
-	place_first_nbr(a, b, vector[0]);
-	i = 1;
+//	place_first_nbr(a, b, vector[0]);
+	i = 0;
 	while (!check_order(*a, *b, count))
 	{
+		swap_heads(a, b);
 		j = find(vector[i], *a, *b);
 		if (j > 0)
 			move_up_a(a, b, count[0], j);
 		else
 			move_up_b(a, b, count[1], -j);
-		i++;		
+		i++;
 	}
 }

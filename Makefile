@@ -6,9 +6,20 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/06/02 22:44:31 by jocaball         ###   ########.fr        #
+#    Updated: 2023/06/06 19:59:06 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+DEF_COLOR=\033[0;39m
+BLACK=\033[0;30m
+RED=\033[1;91m
+GREEN=\033[1;92m
+YELLOW=\033[0;93m
+BLUE='\033[0;94m
+MAGENTA=\033[0;95m
+CYAN=\033[0;96m
+GRAY=\033[0;90m
+WHITE=\033[0;97m
 
 NAME = push_swap
 
@@ -47,7 +58,7 @@ make_ft:
 
 $(NAME): $(LIBFT) $(SRC) $(HDR)
 	$(CC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME)
-	@echo "\n-------> Program $(NAME) has been created <-------\n"
+	@echo "$(GREEN)\n-------> Program $(NAME) has been created <-------\n$(DEF_COLOR)"
 
 clean :
 	rm -f $(OBJ)
@@ -63,4 +74,4 @@ bonus : make_ft $(NAME_BONUS)
 
 $(NAME_BONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
 	$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) -o $(NAME_BONUS)
-	@echo "\n-------> Program $(NAME_BONUS) has been created <-------\n"
+	@echo "$(GREEN)\n-------> Program $(NAME_BONUS) has been created <-------\n$(DEF_COLOR)"

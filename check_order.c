@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 19:40:46 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:28:58 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_order(t_stack *a, t_stack *b, int *count)
 {
 	int	order;
-	
+
 	order = 1;
 	count[0] = 1;
 	while (a->next)

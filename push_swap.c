@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 22:16:50 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/06 21:15:01 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int	main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 	int		*vector;
+
+	argc = 3;
+	argv[1] = "2";
+	argv[2] = "1";
 
 	if (argc == 1)
 		return (0);

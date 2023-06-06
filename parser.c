@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 17:39:22 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:58:28 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static long	ft_atol(const char *str)
 	long	sign;
 	long	number;
 
+	
 	while (((*str >= '\t') && (*str <= '\r')) || (*str == ' '))
 		str++;
 	sign = 1;
@@ -51,6 +52,8 @@ static int	check_int_nbrs(int argc, char **argv)
 		j = 0;
 		if ((argv[i][j] == '+') || (argv[i][j] == '-'))
 			j++;
+		if (!argv[i][j])
+			return (1);
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
@@ -93,7 +96,7 @@ void	parse_argv(int argc, char **argv)
 		err = check_dup(argc, argv);
 	if (err)
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		exit (0);
 	}
 }
