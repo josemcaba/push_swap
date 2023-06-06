@@ -16,25 +16,32 @@ int	find(int nbr, t_stack *a, t_stack *b)
 {
 	int	j;
 
-	(void)b;
 	j = 0;
 	while (a)
 	{
-		if (a->nbr == nbr)
-			break ;
-		a = a->next;
 		j++;
+		if (a->nbr == nbr)
+			return (j) ;
+		a = a->next;
 	}
-	return (j);
+	j = 0;
+	while (b)
+	{
+		j++;
+		if (b->nbr == nbr)
+			return (-j) ;
+		b = b->next;
+	}
+	return (0);
 }
 
-void	move_up_a(t_stack **a, t_stack **b, int	count)
+void	move_up_a(t_stack **a, t_stack **b, int	count, int pos)
 {
-	while (count > 0)
+	while ((count - pos) >= 0)
 	{
 		write(1, "rra\n", 4);			
 		exec("rra", a, b);
-		if (count > 1)
+		if ((count - pos) > 0)
 		{
 			write(1, "pb\n", 3);
 			exec("pb", a, b);
@@ -43,28 +50,53 @@ void	move_up_a(t_stack **a, t_stack **b, int	count)
 	}
 }
 
+void	move_up_b(t_stack **a, t_stack **b, int	count, int pos)
+{
+	if (pos > 1)
+	{
+		if (pos <= (count / 2))
+			while (pos <= (count / 2))
+			{
+				write(1, "rb\n", 3);
+				exec("rb", a, b);
+				pos++;
+			}
+		else
+			while (count + 1 - pos)
+			{
+				write(1, "rrb\n", 4);			
+				exec("rrb", a, b);
+				pos++;
+			}
+	}
+	write(1, "pa\n", 3);
+	exec("pa", a, b);
+}
+
 void	place_first_nbr(t_stack **a, t_stack **b, int nbr)
 {
 	int	count[2];
 	int i;
 
-	check_order(*a, *b, count);
-	i = find(nbr, *a, *b);
-	if (i <= (count[0] / 2))
+	if (!check_order(*a, *b, count))
 	{
-		while ((*a)->nbr != nbr)
+		i = find(nbr, *a, *b);
+		if (i <= ((count[0] + 1) / 2))
 		{
-			write(1, "ra\n", 3);
-			exec("ra", a, b);
+			while ((*a)->nbr != nbr)
+			{
+				write(1, "ra\n", 3);
+				exec("ra", a, b);
+			}
 		}
-	}
-	else
-	{
-		while (count[0] - i)
+		else
 		{
-			write(1, "rra\n", 4);			
-			exec("rra", a, b);
-			i++;
+			while (count[0] + 1 - i)
+			{
+				write(1, "rra\n", 4);			
+				exec("rra", a, b);
+				i++;
+			}
 		}
 	}
 }
@@ -80,17 +112,10 @@ void	sort(t_stack **a, t_stack **b, int *vector)
 	while (!check_order(*a, *b, count))
 	{
 		j = find(vector[i], *a, *b);
-		while (count[0] - j)
-		{
-			write(1, "rra\n", 4);			
-			exec("rra", a, b);
-			if (((*a)->next->nbr == vector[i - 1]) && (i > 0))
-			{
-				write(1, "pb\n", 3);
-				exec("pb", a, b);
-			}
-			j++;
-		}
+		if (j > 0)
+			move_up_a(a, b, count[0], j);
+		else
+			move_up_b(a, b, count[1], -j);
 		i++;		
 	}
 }

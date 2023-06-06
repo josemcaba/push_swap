@@ -31,7 +31,10 @@ int	check_order(t_stack *a, t_stack *b, int *count)
 		order = 0;
 		count[1] = 1;
 		while (b->next)
+		{
 			count[1]++;
+			b = b->next;
+		}
 	}
 	return (order);
 }
