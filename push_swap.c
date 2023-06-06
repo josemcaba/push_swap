@@ -63,10 +63,13 @@ int	main(int argc, char *argv[])
 	parse_argv(argc, argv);
 	nodes = load_nodes(argc, argv);
 	vector = sort_vector(nodes, argc - 1);
-	a = nodes;
-	b = NULL;
-	sort(&a, &b, vector);
-	free(vector);
+	if (vector)
+	{
+		a = nodes;
+		b = NULL;
+		sort(&a, &b, vector);
+		free(vector);
+	}
 	free(nodes);
 	return (0);
 }
