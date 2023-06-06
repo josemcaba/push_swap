@@ -23,7 +23,6 @@ t_stack	*load_nodes(int argc, char *argv[])
 	i = 0;
 	while (i <= (argc - 2))
 	{
-		ft_printf("%s\n", argv[i + 1]);
 		nodes[i].nbr = ft_atoi(argv[i + 1]);
 		if (i == (argc - 2))
 			nodes[i].next = NULL;

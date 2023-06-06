@@ -55,8 +55,6 @@ int	main(int argc, char *argv[])
 	parse_argv(argc, argv);
 	nodes = load_nodes(argc, argv);
 	vector = sort_vector(nodes, argc - 1);
-		ft_printf("<--%d\n", *vector);
-		exit(0);
 	a = nodes;
 	b = NULL;
 	sort(&a, &b, vector);
