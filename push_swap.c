@@ -12,6 +12,19 @@
 
 #include "push_swap.h"
 
+void	load_vector(int **vector, t_stack *nodes)
+{
+	int	i;
+
+	i = 0;
+	while (nodes)
+	{
+		(*vector)[i] = nodes->nbr;
+		nodes = nodes->next;
+		i++;
+	}
+}
+
 static int	*sort_vector(t_stack *nodes, int count)
 {
 	int	*vector;
@@ -21,12 +34,7 @@ static int	*sort_vector(t_stack *nodes, int count)
 	vector = malloc(count * sizeof(int));
 	if (!vector)
 		return (NULL);
-	i = 0;
-	while (nodes)
-	{
-		vector[i++] = nodes->nbr;
-		nodes = nodes->next;
-	}
+	load_vector(&vector, nodes);
 	i = 0;
 	while ((i < count) && (count > 1))
 	{

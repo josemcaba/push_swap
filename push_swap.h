@@ -37,5 +37,6 @@ void	reverse(t_stack **p);
 void	dreverse(t_stack **a, t_stack **b);
 int		check_order(t_stack *a, t_stack *b, int *count);
 void	sort(t_stack **a, t_stack **b, int *vector);
+t_stack	*get_blast(t_stack *p);
 
 #endif

@@ -45,6 +45,12 @@ void	move_up_a(t_stack **a, t_stack **b, int	count, int pos)
 		{
 			write(1, "pb\n", 3);
 			exec("pb", a, b);
+			if ((*b)->next != NULL)
+				if (get_blast(*b)->next->nbr > (*b)->nbr)
+				{
+					write(1, "rb\n", 3);
+					exec("rb", a, b);
+				}
 		}
 		count--;	
 	}
