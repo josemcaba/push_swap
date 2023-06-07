@@ -6,35 +6,21 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/06 19:28:58 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/07 21:27:19 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_order(t_stack *a, t_stack *b, int *count)
+int	check_order(t_stack *a, t_stack *b)
 {
-	int	order;
-
-	order = 1;
-	count[0] = 1;
+	if (b)
+		return (0);
 	while (a->next)
 	{
 		if (a->nbr > a->next->nbr)
-			order = 0;
+			return (0);
 		a = a->next;
-		count[0]++;
 	}
-	count[1] = 0;
-	if (b)
-	{
-		order = 0;
-		count[1] = 1;
-		while (b->next)
-		{
-			count[1]++;
-			b = b->next;
-		}
-	}
-	return (order);
+	return (1);
 }

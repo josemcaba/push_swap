@@ -39,7 +39,7 @@ if [ -z "$2" ];then
 else
 	n=$2;
 fi
-ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG | ./pro_checker $ARG
+ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG | ./checker_OS $ARG
 exit 0
 fi
 

@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/06 21:15:01 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 01:14:21 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,21 @@ int	main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 	int		*vector;
+	int		count[2];
 
-	argc = 3;
-	argv[1] = "2";
-	argv[2] = "1";
+	// argc = 11;
+	// argv[1] = "65";
+	// argv[2] = "59";
+	// argv[3] = "68";
+	// argv[4] = "23";
+	// argv[5] = "60";
+	// argv[6] = "56";
+	// argv[7] = "48";
+	// argv[8] = "90";
+	// argv[9] = "27";
+	// argv[10] = "98";
+
+//	./push_swap 55 6 47 23 41 61 37 28 58 66
 
 	if (argc == 1)
 		return (0);
@@ -71,7 +82,9 @@ int	main(int argc, char *argv[])
 	{
 		a = nodes;
 		b = NULL;
-		sort(&a, &b, vector);
+		count[0] = argc - 1;
+		count[1] = 0;
+		sort(&a, &b, vector, count);
 		free(vector);
 	}
 	free(nodes);

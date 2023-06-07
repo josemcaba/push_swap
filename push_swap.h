@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/06 21:02:31 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/07 23:30:17 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 # ifndef VER
-#  define VER 1
+#  define VER 0
 # endif
 
 void	parse_argv(int argc, char **argv);
@@ -35,8 +35,8 @@ void	rotate(t_stack **p);
 void	drotate(t_stack **a, t_stack **b);
 void	reverse(t_stack **p);
 void	dreverse(t_stack **a, t_stack **b);
-int		check_order(t_stack *a, t_stack *b, int *count);
-void	sort(t_stack **a, t_stack **b, int *vector);
+int		check_order(t_stack *a, t_stack *b);
+void	sort(t_stack **a, t_stack **b, int *vector, int *count);
 t_stack	*get_blast(t_stack *p);
 
 #endif

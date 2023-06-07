@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 19:40:46 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 00:00:39 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	main(int argc, char *argv[])
 	t_stack	*nodes;
 	t_stack	*a;
 	t_stack	*b;
-	int		count[2];
 
 	if (argc == 1)
 		return (0);
@@ -70,7 +69,7 @@ int	main(int argc, char *argv[])
 	a = nodes;
 	b = NULL;
 	play(&a, &b);
-	if (check_order(a, b, count))
+	if (check_order(a, b))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");

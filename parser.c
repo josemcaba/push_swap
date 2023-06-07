@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/06 20:58:28 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:18:09 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static long	ft_atol(const char *str)
 	long	sign;
 	long	number;
 
-	
 	while (((*str >= '\t') && (*str <= '\r')) || (*str == ' '))
 		str++;
 	sign = 1;
