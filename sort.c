@@ -48,6 +48,9 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 	i = count[0];
 	while ((i - pos) >= 0)
 	{
+/***********************************************
+*
+*/
 		write(1, "rra\n", 4);
 		exec("rra", a, b);
 		if ((i - pos) > 0)
@@ -71,32 +74,24 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 
 void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 {
-	int	up;
-	int	down;
+	int	steps;
 
-	if (pos == 2)
+	if (pos > 1)
 	{
-		write(1, "sb\n", 3);
-		exec("sb", a, b);
-	}
-	if (pos > 2)
-	{
-		up = pos - 1;
-		down = count[1] - pos + 1;
-		if (up <= down)
+		steps = steps_nbr(count[1], pos);
+		while (steps)
 		{
-			while (up--)
+			if (steps > 0)
 			{
 				write(1, "rb\n", 3);
 				exec("rb", a, b);
+				steps--;			
 			}
-		}
-		else
-		{
-			while (down--)
+			else
 			{
 				write(1, "rrb\n", 4);
 				exec("rrb", a, b);
+				steps++;			
 			}
 		}
 	}
@@ -106,33 +101,45 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 	count[1]--;
 }
 
+int	steps_nbr(int count, int pos)
+{
+	int	up;
+	int	down;
+
+	up = pos - 1;
+	down = count - pos + 1;
+	if (up <= down)
+		return (up);
+	else
+		return (-down);
+}
+
 void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
 {
-	int	i;
+	int	pos;
+	int	steps;
 
-	if (!check_order(*a, *b))
+	if (check_order(*a, *b))
+		return ;
+	pos = find(nbr, *a, *b);
+	steps = steps_nbr(count, pos);
+	while (steps)
 	{
-		i = find(nbr, *a, *b);
-		if (i <= ((count + 1) / 2))
+		if (steps > 0)
 		{
-			while (i > 1)
-			{
-				write(1, "ra\n", 3);
-				exec("ra", a, b);
-				i--;
-			}
+			write(1, "ra\n", 3);
+			exec("ra", a, b);
+			steps--;			
 		}
 		else
 		{
-			while (count + 1 - i)
-			{
-				write(1, "rra\n", 4);
-				exec("rra", a, b);
-				i++;
-			}
+			write(1, "rra\n", 4);
+			exec("rra", a, b);
+			steps++;			
 		}
 	}
 }
+
 void	swap_heads(t_stack **a, t_stack **b, int *count)
 {
 	if ((count[0] > 1) && (count[1] > 1))
@@ -161,8 +168,6 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	int	j;
 
 	place_first_nbr(a, b, vector[0], count[0]);
-	// if (!check_order(*a, *b))
-	// 	swap_heads(a, b, count);
 	i = 1;
 	while (!check_order(*a, *b))
 	{
@@ -172,6 +177,5 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 		else
 			move_up_b(a, b, count, -j);
 		i++;
-//		swap_heads(a, b, count);
 	}
 }
