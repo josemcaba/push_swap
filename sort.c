@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 22:59:01 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:15:44 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int	find(int nbr, t_stack *a, t_stack *b)
 
 void	sort_push_b(t_stack **a, t_stack **b, int nbr, int count)
 {
+	t_stack	*tmp_b;
+	int		i;
+
 	if (count <= 1)
 	{
 		exec("pb\n", a, b, VER);
@@ -47,6 +50,15 @@ void	sort_push_b(t_stack **a, t_stack **b, int nbr, int count)
 		exec("sb\n", a, b, VER);
 		return ;
 	}
+	i = 0;
+	tmp_b = *b;
+	while (tmp_b && tmp_b->nbr < nbr)
+	{
+		i++;
+		tmp_b = tmp_b->next;
+	}
+	// while (i--)
+	// 	exec("rb\n", a, b, VER);
 	exec("pb\n", a, b, VER);
 }
 

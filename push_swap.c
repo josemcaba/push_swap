@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 23:02:30 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 23:53:56 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char *argv[])
 	//	./push_swap 55 6 47 23 41 61 37 28 58 66
 	if (argc == 1)
 		return (0);
+	if (argc == 2)
 	parse_argv(argc, argv);
 	nodes = load_nodes(argc, argv);
 	vector = sort_vector(nodes, argc - 1);
