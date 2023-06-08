@@ -6,13 +6,13 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 00:00:39 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 22:23:09 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ver(t_stack *stack_a, t_stack *stack_b)
+static void	show(t_stack *stack_a, t_stack *stack_b)
 {
 	t_stack	*na;
 	t_stack	*nb;
@@ -23,7 +23,7 @@ static void	ver(t_stack *stack_a, t_stack *stack_b)
 	{
 		if (na)
 		{
-			ft_printf("%11i", na->nbr);
+			ft_printf("\033[1;94m%11i", na->nbr);
 			na = na->next;
 			if (!nb)
 				ft_printf("\n");
@@ -32,28 +32,32 @@ static void	ver(t_stack *stack_a, t_stack *stack_b)
 			ft_printf("%11s", "");
 		if (nb)
 		{
-			ft_printf("%14i\n", nb->nbr);
+			ft_printf("\033[0;96m%14i\n", nb->nbr);
 			nb = nb->next;
 		}
 	}
-	ft_printf("-----a-----   -----b-----\n");
+	ft_printf("\033[1;94m-----a-----   \033[0;96m-----b-----\033[0;39m\n");
 }
 
-static void	play(t_stack **a, t_stack **b)
+static int	play(t_stack **a, t_stack **b, int ver)
 {
 	char	*order;
+	int		err;
 
-	if (VER)
-		ver(*a, *b);
+	err = 0;
+	if (ver)
+		show(*a, *b);
 	order = get_next_line(0);
-	while (order && order[0] != 'q')
+	while (order)
 	{
-		exec(order, a, b);
-		if (VER)
-			ver(*a, *b);
+		if (exec(order, a, b, ver))
+			err = 1;
+		if (ver)
+			show(*a, *b);
 		order = get_next_line(0);
 	}
 	free(order);
+	return (err);
 }
 
 int	main(int argc, char *argv[])
@@ -61,6 +65,7 @@ int	main(int argc, char *argv[])
 	t_stack	*nodes;
 	t_stack	*a;
 	t_stack	*b;
+	int		err;
 
 	if (argc == 1)
 		return (0);
@@ -68,11 +73,13 @@ int	main(int argc, char *argv[])
 	nodes = load_nodes(argc, argv);
 	a = nodes;
 	b = NULL;
-	play(&a, &b);
-	if (check_order(a, b))
-		ft_printf("OK\n");
+	err = play(&a, &b, VER_CHECK);
+	if (err)
+		write(2, "\033[0;93mError\033[0;39m\n", 6);
+	else if (check_order(a, b))
+		ft_printf("\033[1;92mOK\033[0;39m\n");
 	else
-		ft_printf("KO\n");
+		ft_printf("\033[1;91mKO\033[0;39m\n");
 	free(nodes);
 	return (0);
 }

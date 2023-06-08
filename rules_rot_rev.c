@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:45:48 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 13:59:12 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:57:35 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_stack	*get_blast(t_stack *p)
 	return (np);
 }
 
-void	rotate(t_stack **p)
+void	rotate(t_stack **p, char *order, int ver)
 {
 	t_stack	*last;
 
@@ -35,15 +35,19 @@ void	rotate(t_stack **p)
 	*p = (*p)->next;
 	last = last->next;
 	last->next = NULL;
+	if (ver && order)
+		write(1, order, 3);
 }
 
-void	drotate(t_stack **a, t_stack **b)
+void	drotate(t_stack **a, t_stack **b, int ver)
 {
-	rotate(a);
-	rotate(b);
+	rotate(a, NULL, 0);
+	rotate(b, NULL, 0);
+	if (ver)
+		write(1, "rr\n", 3);
 }
 
-void	reverse(t_stack **p)
+void	reverse(t_stack **p, char *order, int ver)
 {
 	t_stack	*blast;
 
@@ -55,10 +59,14 @@ void	reverse(t_stack **p)
 	blast->next->next = *p;
 	*p = blast->next;
 	blast->next = NULL;
+	if (ver && order)
+		write(1, order, 4);
 }
 
-void	dreverse(t_stack **a, t_stack **b)
+void	dreverse(t_stack **a, t_stack **b, int ver)
 {
-	reverse(a);
-	reverse(b);
+	reverse(a, NULL, 0);
+	reverse(b, NULL, 0);
+	if (ver)
+		write(1, "rrr\n", 4);
 }

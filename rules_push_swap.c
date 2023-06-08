@@ -6,13 +6,13 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:47:13 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/02 12:55:21 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/08 20:56:54 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack **dst, t_stack **src)
+void	push(t_stack **dst, t_stack **src, char *order, int ver)
 {
 	t_stack	*tn;
 
@@ -31,9 +31,11 @@ void	push(t_stack **dst, t_stack **src)
 		*src = (*src)->next;
 		(*dst)->next = tn;
 	}
+	if (ver)
+		write(1, order, 3);
 }
 
-void	swap(t_stack **p)
+void	swap(t_stack **p, char *order, int ver)
 {
 	t_stack	*tmp;
 
@@ -45,36 +47,14 @@ void	swap(t_stack **p)
 	*p = (*p)->next;
 	tmp->next = (*p)->next;
 	(*p)->next = tmp;
+	if (ver && order)
+		write(1, order, 3);
 }
 
-void	dswap(t_stack **a, t_stack **b)
+void	dswap(t_stack **a, t_stack **b, int ver)
 {
-	swap(a);
-	swap(b);
-}
-
-void	exec(char *order, t_stack **a, t_stack **b)
-{
-	if (!ft_strncmp("sa\n", order, ft_strlen(order)))
-		swap(a);
-	if (!ft_strncmp("sb\n", order, ft_strlen(order)))
-		swap(b);
-	if (!ft_strncmp("ss\n", order, ft_strlen(order)))
-		dswap(a, b);
-	if (!ft_strncmp("pa\n", order, ft_strlen(order)))
-		push(a, b);
-	if (!ft_strncmp("pb\n", order, ft_strlen(order)))
-		push(b, a);
-	if (!ft_strncmp("ra\n", order, ft_strlen(order)))
-		rotate(a);
-	if (!ft_strncmp("rb\n", order, ft_strlen(order)))
-		rotate(b);
-	if (!ft_strncmp("rr\n", order, ft_strlen(order)))
-		drotate(a, b);
-	if (!ft_strncmp("rra\n", order, ft_strlen(order)))
-		reverse(a);
-	if (!ft_strncmp("rrb\n", order, ft_strlen(order)))
-		reverse(b);
-	if (!ft_strncmp("rrr\n", order, ft_strlen(order)))
-		dreverse(a, b);
+	swap(a, NULL, 0);
+	swap(b, NULL, 0);
+	if (ver)
+		write(1, "ss\n", 3);
 }

@@ -6,20 +6,20 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/06/06 19:59:06 by jocaball         ###   ########.fr        #
+#    Updated: 2023/06/08 22:50:55 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEF_COLOR=\033[0;39m
-BLACK=\033[0;30m
-RED=\033[1;91m
-GREEN=\033[1;92m
-YELLOW=\033[0;93m
-BLUE='\033[0;94m
-MAGENTA=\033[0;95m
-CYAN=\033[0;96m
-GRAY=\033[0;90m
-WHITE=\033[0;97m
+DEF_COLOR = \033[0;39m
+BLACK	  =	\033[0;30m
+RED		  =	\033[1;91m
+GREEN	  =	\033[1;92m
+YELLOW	  = \033[0;93m
+BLUE	  = \033[0;94m
+MAGENTA	  = \033[0;95m
+CYAN	  = \033[0;96m
+GRAY	  = \033[0;90m
+WHITE	  = \033[0;97m
 
 NAME = push_swap
 
@@ -33,14 +33,16 @@ SRC	= 	push_swap.c			\
 		rules_push_swap.c	\
 		rules_rot_rev.c		\
 		check_order.c		\
-		sort.c
+		sort.c				\
+		exec.c
 
 SRC_BONUS	= 	checker.c			\
 				parser.c			\
 				load_nodes.c 		\
 				rules_push_swap.c	\
 				check_order.c		\
-				rules_rot_rev.c	
+				rules_rot_rev.c		\
+				exec.c
 		
 OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)
 
@@ -49,7 +51,8 @@ LIBFT = ./libft/libft.a
 MAKE_LIBFT = @make -C ./libft
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
+VER = -D VER_CHECK=1
 
 all : make_ft $(NAME)
 
@@ -57,8 +60,8 @@ make_ft:
 	$(MAKE_LIBFT)
 
 $(NAME): $(LIBFT) $(SRC) $(HDR)
-	$(CC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME)
-	@echo "$(GREEN)\n-------> Program $(NAME) has been created <-------\n$(DEF_COLOR)"
+	@$(CC) $(CFLAGS) $(SRC) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)\n-------> Program $(YELLOW)$(NAME)$(GREEN) has been created\n$(DEF_COLOR)"
 
 clean :
 	rm -f $(OBJ)
@@ -73,5 +76,5 @@ re : fclean all
 bonus : make_ft $(NAME_BONUS) 
 
 $(NAME_BONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
-	$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) -o $(NAME_BONUS)
-	@echo "$(GREEN)\n-------> Program $(NAME_BONUS) has been created <-------\n$(DEF_COLOR)"
+	@$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) $(VER) -o $(NAME_BONUS)
+	@echo "$(GREEN)\n-------> Program $(YELLOW)$(NAME_BONUS)$(GREEN) has been created\n$(DEF_COLOR)"
