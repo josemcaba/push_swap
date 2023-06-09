@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 21:45:00 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:05:21 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_stack
 # define VER 1
 
 # ifndef VER_CHECK
-#  define VER_CHECK 0
+#  define VER_CHECK 1
 # endif
 
 void	parse_argv(int argc, char **argv);

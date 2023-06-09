@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 00:15:44 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:44:13 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,23 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 	t_stack	*tmp_b;
 	int		i;
 
-	if (count[1] <= 1)
-		exec("pb\n", a, b, VER);
-	if ((count[1] == 1))
-		swap_heads(a, b, count);
-	if (count[1] > 1)
+	i = 0;
+	tmp_b = *b;
+	while (tmp_b && tmp_b->nbr < (*a)->nbr)
 	{
-		i = 0;
-		tmp_b = *b;
-		while (tmp_b && tmp_b->nbr < (*a)->nbr)
-		{
-			i++;
-			tmp_b = tmp_b->next;
-		}
-		if (i == count[1])
-		{
-			exec("pb\n", a, b, VER);
+		i++;
+		tmp_b = tmp_b->next;
+	}
+	if (i == count[1])
+	{
+		exec("pb\n", a, b, VER);
+		exec("rb\n", a, b, VER);
+	}
+	else
+	{
+		while (i--)
 			exec("rb\n", a, b, VER);
-		}
-		else
-		{
-			while (i--)
-				exec("rb\n", a, b, VER);
-			exec("pb\n", a, b, VER);
-		}
+		exec("pb\n", a, b, VER);
 	}
 }
 
@@ -85,21 +78,29 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 	int	i;
 
 	if ((pos == 2) && (count[1] == 0))
-	{
 		exec("sa\n", a, b, VER);
-		return ;
-	}
-	i = count[0];
-	while ((i - pos) >= 0)
+	else
 	{
-		exec("rra\n", a, b, VER);
-		if ((i - pos) > 0)
+		i = count[0];
+		while ((i - pos) >= 0)
 		{
-			sort_push_b(a, b, count);
-			count[0]--;
-			count[1]++;
+			exec("rra\n", a, b, VER);
+			if ((i - pos) > 0)
+			{
+				if (count[1] <= 1)
+					exec("pb\n", a, b, VER);
+				if (count[1] == 1)
+				{
+					if ((*b)->nbr < (*b)->next->nbr)
+						exec("sb\n", a, b, VER);
+				}
+				if (count[1] > 1)
+					sort_push_b(a, b, count);
+				count[0]--;
+				count[1]++;
+			}
+			i--;
 		}
-		i--;
 	}
 }
 
@@ -177,7 +178,7 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	while (!check_order(*a, *b))
 	{
 		j = find(vector[i], *a, *b);
-		if (j > 0)
+		if (j >= 0)
 			move_up_a(a, b, count, j);
 		else
 			move_up_b(a, b, count, -j);
