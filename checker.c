@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 22:23:09 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 23:44:04 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,15 @@ static int	play(t_stack **a, t_stack **b, int ver)
 			err = 1;
 		if (ver)
 			show(*a, *b);
+		free(order);
 		order = get_next_line(0);
 	}
-	free(order);
 	return (err);
+}
+
+void	ft_leaks(void)
+{
+	system("leaks -q checker");
 }
 
 int	main(int argc, char *argv[])
@@ -66,14 +71,17 @@ int	main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 	int		err;
+	int		flag_str_argv;
 
+	atexit(ft_leaks);
 	if (argc == 1)
 		return (0);
-	parse_argv(argc, argv);
+	flag_str_argv = parse_argv(&argc, &argv);
 	nodes = load_nodes(argc, argv);
 	a = nodes;
 	b = NULL;
 	err = play(&a, &b, VER_CHECK);
+	err = 0;
 	if (err)
 		write(2, "\033[0;93mError\033[0;39m\n", 6);
 	else if (check_order(a, b))
@@ -81,5 +89,7 @@ int	main(int argc, char *argv[])
 	else
 		ft_printf("\033[1;91mKO\033[0;39m\n");
 	free(nodes);
+	if (flag_str_argv)
+		free_argv(argv);
 	return (0);
 }

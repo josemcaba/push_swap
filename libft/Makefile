@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jocaball <jocaball@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/18 14:19:51 by jocaball          #+#    #+#              #
-#    Updated: 2023/05/26 18:45:39 by jocaball         ###   ########.fr        #
+#    Updated: 2023/06/09 20:34:45 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC	= ft_isalpha.c		ft_isdigit.c			ft_isalnum.c		\
 	  pf_str_convert.c	pf_hex_convert.c		pf_int_convert.c	\
 	  pf_uint_convert.c	pf_flags_read.c			ft_htoa.c			\
 	  ft_uitoa.c		ft_putchar.c			ft_putstr.c			\
-	  get_next_line.c	get_next_line_utils.c
+	  get_next_line.c	get_next_line_utils.c	ft_atol.c
 
 OBJ = $(SRC:%.c=%.o)
 
@@ -47,7 +47,7 @@ $(NAME): $(OBJ) $(HDR)
 	@echo "Library has been created"
 
 clean :
-	rm -f $(OBJ) $(OBJ_BONUS) 
+	rm -f $(OBJ)
 
 fclean : clean
 	rm -f $(NAME)

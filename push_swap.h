@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 15:05:21 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 23:41:18 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_stack
 #  define VER_CHECK 1
 # endif
 
-void	parse_argv(int argc, char **argv);
+int		parse_argv(int *argc, char ***argv);
 t_stack	*load_nodes(int argc, char **argv);
 int		exec(char *order, t_stack **a, t_stack **b, int ver);
 void	push(t_stack **dst, t_stack **src, char *order, int ver);
@@ -41,5 +41,6 @@ int		check_order(t_stack *a, t_stack *b);
 void	sort(t_stack **a, t_stack **b, int *vector, int *count);
 t_stack	*get_blast(t_stack *p);
 int		steps_nbr(int count, int pos);
+void	free_argv(char **argv);
 
 #endif

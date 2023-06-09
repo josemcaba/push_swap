@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 17:49:53 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:34:08 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,22 @@ int	main(int argc, char *argv[])
 	int		*vector;
 	int		count[2];
 
-	// argc = 6;
-	// argv[1] = "1";
-	// argv[2] = "2";
-	// argv[3] = "5";
+	// argc = 11;
+	// argv[1] = "5";
+	// argv[2] = "66";
+	// argv[3] = "7";
 	// argv[4] = "3";
-	// argv[5] = "4";
-	// argv[6] = "7";
+	// argv[5] = "2";
+	// argv[6] = "1";
 	// argv[7] = "56";
-	// argv[8] = "2";
+	// argv[8] = "6";
 	// argv[9] = "27";
-	// argv[10] = "98";
+	// argv[10] = "8";
 	//	./push_swap 55 6 47 23 41 61 37 28 58 66
 	if (argc == 1)
 		return (0);
 //	if (argc == 2)
-	parse_argv(argc, argv);
+	parse_argv(&argc, &argv);
 	nodes = load_nodes(argc, argv);
 	vector = sort_vector(nodes, argc - 1);
 	if (vector)

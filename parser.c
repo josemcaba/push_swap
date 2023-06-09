@@ -6,39 +6,11 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/08 23:08:46 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 23:44:10 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// The ft_atol() function converts the initial portion of the string pointed to
-// by str to long representation.
-
-static long	ft_atol(const char *str)
-{
-	long	sign;
-	long	number;
-
-	while (((*str >= '\t') && (*str <= '\r')) || (*str == ' '))
-		str++;
-	sign = 1;
-	if (*str == '-')
-	{
-		sign = -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	number = 0;
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		number = (number * 10) + (*str - '0');
-		str++;
-	}
-	number = sign * number;
-	return (number);
-}
 
 static int	check_int_nbrs(int argc, char **argv)
 {
@@ -86,16 +58,61 @@ static int	check_dup(int argc, char **argv)
 	return (0);
 }
 
-void	parse_argv(int argc, char **argv)
+char	**split_argv(int *argc, char **argv)
+{
+	char	*new_argv;
+
+	new_argv = ft_strjoin("push_swap ", argv[1]);
+	if (!new_argv)
+		return (NULL);
+	argv = ft_split(new_argv, ' ');
+	if (!argv)
+	{
+		free(new_argv);
+		return (NULL);
+	}
+	free(new_argv);
+	*argc = 0;
+	while (argv[*argc])
+		(*argc)++;
+	return (argv);
+}
+
+void	free_argv(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
+}
+
+int	parse_argv(int *argc, char ***argv)
 {
 	int	err;
+	int	flag_str_argv;
 
-	err = check_int_nbrs(argc, argv);
+	flag_str_argv = 0;
+	if (*argc == 2)
+	{
+		flag_str_argv = 1;
+		*argv = split_argv(argc, *argv);
+		if (!(*argv))
+			exit (0);
+	}
+	err = check_int_nbrs(*argc, *argv);
 	if (!err)
-		err = check_dup(argc, argv);
+		err = check_dup(*argc, *argv);
 	if (err)
 	{
-		write(2, "Error\n", 6);
+		if (flag_str_argv)
+			free_argv(*argv);
+		write(2, "Eor\n", 6);
 		exit (0);
 	}
+	return (flag_str_argv);
 }

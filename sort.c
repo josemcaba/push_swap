@@ -6,11 +6,24 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 17:44:13 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:08:56 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	steps_nbr(int count, int pos)
+{
+	int	up;
+	int	down;
+
+	up = pos - 1;
+	down = count - pos + 1;
+	if (up <= down)
+		return (up);
+	else
+		return (-down);
+}
 
 int	find(int nbr, t_stack *a, t_stack *b)
 {
@@ -48,6 +61,29 @@ void	swap_heads(t_stack **a, t_stack **b, int *count)
 		exec("sb\n", a, b, VER);
 }
 
+void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
+{
+	int	steps;
+
+	steps = steps_nbr(count[1], idx);
+	if (steps > 0)
+	{
+		idx = 0;
+		while (idx++ < steps)
+			exec("rrb\n", a, b, VER);
+		exec("pb\n", a, b, VER);
+		idx = 0;
+		while (idx++ < (steps + 1))
+			exec("rb\n", a, b, VER);
+	}
+	else
+	{
+		while (idx--)
+			exec("rb\n", a, b, VER);
+		exec("pb\n", a, b, VER);
+	}
+}
+
 void	sort_push_b(t_stack **a, t_stack **b, int *count)
 {
 	t_stack	*tmp_b;
@@ -55,7 +91,7 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 
 	i = 0;
 	tmp_b = *b;
-	while (tmp_b && tmp_b->nbr < (*a)->nbr)
+	while (tmp_b && tmp_b->nbr > (*a)->nbr)
 	{
 		i++;
 		tmp_b = tmp_b->next;
@@ -66,11 +102,7 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 		exec("rb\n", a, b, VER);
 	}
 	else
-	{
-		while (i--)
-			exec("rb\n", a, b, VER);
-		exec("pb\n", a, b, VER);
-	}
+		insert_b(a, b, i, count);
 }
 
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
@@ -130,18 +162,6 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 	count[1]--;
 }
 
-int	steps_nbr(int count, int pos)
-{
-	int	up;
-	int	down;
-
-	up = pos - 1;
-	down = count - pos + 1;
-	if (up <= down)
-		return (up);
-	else
-		return (-down);
-}
 
 void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
 {
