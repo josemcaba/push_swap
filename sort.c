@@ -35,37 +35,54 @@ int	find(int nbr, t_stack *a, t_stack *b)
 	return (0);
 }
 
-void	sort_push_b(t_stack **a, t_stack **b, int nbr, int count)
+void	swap_heads(t_stack **a, t_stack **b, int *count)
+{
+	if ((count[0] > 1) && (count[1] > 1))
+	{	
+		if (((*a)->nbr > (*a)->next->nbr) && ((*b)->nbr < (*b)->next->nbr))
+			exec("ss\n", a, b, VER);
+	}
+	else if ((count[0] > 1) && ((*a)->nbr > (*a)->next->nbr))
+		exec("sa\n", a, b, VER);
+	else if ((count[1] > 1) && ((*b)->nbr > (*b)->next->nbr))
+		exec("sb\n", a, b, VER);
+}
+
+void	sort_push_b(t_stack **a, t_stack **b, int *count)
 {
 	t_stack	*tmp_b;
 	int		i;
 
-	if (count <= 1)
-	{
+	if (count[1] <= 1)
 		exec("pb\n", a, b, VER);
-		return ;
-	}
-	if ((count == 1) && (nbr < (*b)->next->nbr))
+	if ((count[1] == 1))
+		swap_heads(a, b, count);
+	if (count[1] > 1)
 	{
-		exec("sb\n", a, b, VER);
-		return ;
+		i = 0;
+		tmp_b = *b;
+		while (tmp_b && tmp_b->nbr < (*a)->nbr)
+		{
+			i++;
+			tmp_b = tmp_b->next;
+		}
+		if (i == count[1])
+		{
+			exec("pb\n", a, b, VER);
+			exec("rb\n", a, b, VER);
+		}
+		else
+		{
+			while (i--)
+				exec("rb\n", a, b, VER);
+			exec("pb\n", a, b, VER);
+		}
 	}
-	i = 0;
-	tmp_b = *b;
-	while (tmp_b && tmp_b->nbr < nbr)
-	{
-		i++;
-		tmp_b = tmp_b->next;
-	}
-	// while (i--)
-	// 	exec("rb\n", a, b, VER);
-	exec("pb\n", a, b, VER);
 }
 
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 {
 	int	i;
-	int	nbr;
 
 	if ((pos == 2) && (count[1] == 0))
 	{
@@ -75,11 +92,10 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 	i = count[0];
 	while ((i - pos) >= 0)
 	{
-		nbr = (*a)->nbr;
 		exec("rra\n", a, b, VER);
 		if ((i - pos) > 0)
 		{
-			sort_push_b(a, b, nbr, count[1]);
+			sort_push_b(a, b, count);
 			count[0]--;
 			count[1]++;
 		}
@@ -150,21 +166,6 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
 	}
 }
 
-void	swap_heads(t_stack **a, t_stack **b, int *count)
-{
-	if ((count[0] > 1) && (count[1] > 1))
-	{	
-		if (((*a)->nbr > (*a)->next->nbr) && ((*b)->nbr < (*b)->next->nbr))
-			exec("ss\n", a, b, VER);
-	}
-	else if ((count[0] > 1) && ((*a)->nbr > (*a)->next->nbr))
-		exec("sa\n", a, b, VER);
-	else if ((count[1] > 1) && ((*b)->nbr > (*b)->next->nbr))
-	{
-		write(1, "sb\n", 3);
-		exec("sb\n", a, b, VER);
-	}	
-}
 
 void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 {
