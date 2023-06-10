@@ -111,7 +111,7 @@ int	parse_argv(int *argc, char ***argv)
 	{
 		if (flag_str_argv)
 			free_argv(*argv);
-		write(2, "Eor\n", 6);
+		write(2, "Error\n", 6);
 		exit (0);
 	}
 	return (flag_str_argv);

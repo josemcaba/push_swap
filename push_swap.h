@@ -24,7 +24,7 @@ typedef struct s_stack
 # define VER 1
 
 # ifndef VER_CHECK
-#  define VER_CHECK 1
+#  define VER_CHECK 0
 # endif
 
 int		parse_argv(int *argc, char ***argv);

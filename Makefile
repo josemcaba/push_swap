@@ -52,7 +52,6 @@ MAKE_LIBFT = @make -C ./libft
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-VER = -D VER_CHECK=1
 
 all : make_ft $(NAME)
 
@@ -76,5 +75,5 @@ re : fclean all
 bonus : make_ft $(NAME_BONUS) 
 
 $(NAME_BONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
-	@$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) $(VER) -o $(NAME_BONUS)
+	@$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(GREEN)\n-------> Program $(YELLOW)$(NAME_BONUS)$(GREEN) has been created\n$(DEF_COLOR)"
