@@ -84,25 +84,65 @@ void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
 	}
 }
 
+// void	sort_push_b(t_stack **a, t_stack **b, int *count)
+// {
+// 	t_stack	*tmp_b;
+// 	int		i;
+
+// 	i = 0;
+// 	tmp_b = *b;
+// 	while (tmp_b && tmp_b->nbr > (*a)->nbr)
+// 	{
+// 		i++;
+// 		tmp_b = tmp_b->next;
+// 	}
+// 	if (i == count[1])
+// 	{
+// 		exec("pb\n", a, b, VER);
+// 		exec("rb\n", a, b, VER);
+// 	}
+// 	else
+// 		insert_b(a, b, i, count);
+// }
+
 void	sort_push_b(t_stack **a, t_stack **b, int *count)
 {
 	t_stack	*tmp_b;
 	int		i;
+	int		steps;
 
-	i = 0;
 	tmp_b = *b;
-	while (tmp_b && tmp_b->nbr > (*a)->nbr)
-	{
-		i++;
-		tmp_b = tmp_b->next;
-	}
-	if (i == count[1])
-	{
+	// if ((count[1] == 2) && ((tmp_b->nbr - 1) > tmp_b->next->nbr))
+	// {
+	// 	exec("rrb\n", a, b, VER);
+	// 	exec("pb\n", a, b, VER);
+	// }
+	// else
+	// {
+		i = 1;
+		while (tmp_b && ((*a)->nbr < tmp_b->nbr))
+		{
+			i++;
+			if (tmp_b->next->nbr > tmp_b->nbr)
+				break ;
+			tmp_b = tmp_b->next;
+		}
+		steps = steps_nbr(count[1], i);
+		while (steps)
+		{
+			if (steps > 0)
+			{
+				exec("rb\n", a, b, VER);
+				steps--;
+			}
+			else
+			{
+				exec("rrb\n", a, b, VER);
+				steps++;
+			}
+		}
 		exec("pb\n", a, b, VER);
-		exec("rb\n", a, b, VER);
-	}
-	else
-		insert_b(a, b, i, count);
+	// }
 }
 
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
@@ -116,16 +156,14 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 		i = count[0];
 		while ((i - pos) >= 0)
 		{
-			exec("rra\n", a, b, VER);
+			if ((count[1] > 1) && ((*b)->nbr < get_blast(*b)->next->nbr))
+				exec("rrr\n", a, b, VER);
+			else
+				exec("rra\n", a, b, VER);
 			if ((i - pos) > 0)
 			{
 				if (count[1] <= 1)
 					exec("pb\n", a, b, VER);
-				if (count[1] == 1)
-				{
-					if ((*b)->nbr < (*b)->next->nbr)
-						exec("sb\n", a, b, VER);
-				}
 				if (count[1] > 1)
 					sort_push_b(a, b, count);
 				count[0]--;
@@ -186,7 +224,6 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
 		}
 	}
 }
-
 
 void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 {
