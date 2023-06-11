@@ -58,7 +58,7 @@ static int	check_dup(int argc, char **argv)
 	return (0);
 }
 
-char	**split_argv(int *argc, char **argv)
+static char	**split_argv(int *argc, char **argv)
 {
 	char	*new_argv;
 

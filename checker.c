@@ -50,7 +50,7 @@ static int	play(t_stack **a, t_stack **b, int ver)
 	order = get_next_line(0);
 	while (order)
 	{
-		if (exec(order, a, b, ver))
+		if (exec(order, a, b, NVER))
 			err = 1;
 		if (ver)
 			show(*a, *b);
@@ -58,11 +58,6 @@ static int	play(t_stack **a, t_stack **b, int ver)
 		order = get_next_line(0);
 	}
 	return (err);
-}
-
-void	ft_leaks(void)
-{
-	system("leaks -q checker");
 }
 
 int	main(int argc, char *argv[])
@@ -73,7 +68,6 @@ int	main(int argc, char *argv[])
 	int		err;
 	int		flag_str_argv;
 
-	atexit(ft_leaks);
 	if (argc == 1)
 		return (0);
 	flag_str_argv = parse_argv(&argc, &argv);
@@ -81,7 +75,6 @@ int	main(int argc, char *argv[])
 	a = nodes;
 	b = NULL;
 	err = play(&a, &b, VER_CHECK);
-	err = 0;
 	if (err)
 		write(2, "\033[0;93mError\033[0;39m\n", 6);
 	else if (check_order(a, b))

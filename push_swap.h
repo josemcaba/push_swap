@@ -21,11 +21,12 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-# define VER 1
-
 # ifndef VER_CHECK
-#  define VER_CHECK 0
+#  define VER_CHECK 1
 # endif
+
+# define VER 1
+# define NVER 0
 
 int		parse_argv(int *argc, char ***argv);
 t_stack	*load_nodes(int argc, char **argv);
