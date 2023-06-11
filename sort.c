@@ -120,10 +120,10 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 	// else
 	// {
 		i = 1;
-		while (tmp_b->next && ((*a)->nbr < tmp_b->nbr))
+		while (tmp_b->next && (tmp_b->nbr > tmp_b->next->nbr))
 		{
 			i++;
-			if (tmp_b->next->nbr > tmp_b->nbr)
+			if ((*a)->nbr < tmp_b->nbr)
 				break ;
 			tmp_b = tmp_b->next;
 		}
@@ -156,13 +156,13 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 		i = count[0];
 		while ((i - pos) >= 0)
 		{
-			if ((count[1] > 1) && ((*b)->nbr < get_blast(*b)->next->nbr))
-				exec("rrr\n", a, b, VER);
-			else
-				exec("rra\n", a, b, VER);
+			// if ((count[1] > 1) && ((*b)->nbr < get_blast(*b)->next->nbr))
+			// 	exec("rrr\n", a, b, VER);
+			// else
+			exec("rra\n", a, b, VER);
 			if ((i - pos) > 0)
 			{
-				if (count[1] <= 1)
+				if (count[1] < 1)
 					exec("pb\n", a, b, VER);
 				if (count[1] > 1)
 					sort_push_b(a, b, count);
