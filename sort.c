@@ -120,7 +120,7 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 	// else
 	// {
 		i = 1;
-		while (tmp_b && ((*a)->nbr < tmp_b->nbr))
+		while (tmp_b->next && ((*a)->nbr < tmp_b->nbr))
 		{
 			i++;
 			if (tmp_b->next->nbr > tmp_b->nbr)
