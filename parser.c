@@ -101,8 +101,11 @@ int	parse_argv(int *argc, char ***argv)
 	{
 		flag_str_argv = 1;
 		*argv = split_argv(argc, *argv);
-		if (!(*argv))
+		if (!(*argv) || (*argc == 1))
+		{
+			write(2, "Error\n", 6);
 			exit (0);
+		}
 	}
 	err = check_int_nbrs(*argc, *argv);
 	if (!err)
