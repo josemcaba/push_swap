@@ -48,6 +48,59 @@ int	find(int nbr, t_stack *a, t_stack *b)
 	return (0);
 }
 
+int	find_b_hole(int nbr, t_stack *b)
+{
+	int prev;
+	int	next;
+	t_stack *backup;
+
+	backup = b;
+	prev = nbr;
+	next = nbr;
+	while (b)
+	{
+		if (b->nbr < prev)
+			prev = b->nbr;
+		if (b->nbr > next)
+			next = b->nbr;
+		b = b->next;
+	}
+	b = backup;
+	while (b)
+	{
+		if ((prev < b->nbr) && (b->nbr < nbr))
+			prev = b->nbr;
+		if ((nbr < b->nbr) && (b->nbr < next))
+			next = b->nbr;
+		b = b->next;
+	}
+	if (prev == nbr)
+		return(next);
+	return (prev);
+}
+
+void prepare_b(t_stack **a, t_stack **b, int count)
+{
+	int	pos;
+	int	steps;
+
+	pos = find(find_b_hole((*a)->nbr, *b), *a, *b);
+	steps = steps_nbr_to_top(count, pos);
+	while (steps)
+	{
+		if (steps > 0)
+		{
+			exec("rb\n", a, b, VER);	
+			steps--;
+		}
+		else
+		{
+			exec("rrb\n", a, b, VER);
+			steps++;			
+		}
+	}
+}
+
 void	swap_heads(t_stack **a, t_stack **b, int *count)
 {
 	if ((count[0] > 1) && (count[1] > 1))
@@ -164,11 +217,12 @@ void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
 			{
 				// if (count[1] < 1)
 				// {
+					prepare_b(a, b, count[1]);
 					exec("pb\n", a, b, VER);
-					if ((*b)->nbr < (*b)->next->nbr)
-						exec("sb\n", a, b, VER);
 					count[0]--;
 					count[1]++;
+					// if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
+					// 	exec("sb\n", a, b, VER);
 				// }
 				// if (count[1] > 1)
 				//	sort_push_b(a, b, count);
@@ -198,10 +252,10 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 				{
 					exec("rrr\n", a, b, VER);
 					exec("pb\n", a, b, VER);
-					if ((*b)->nbr < (*b)->next->nbr)
-						exec("sb\n", a, b, VER);
 					count[0]--;
 					count[1]++;
+					if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
+						exec("sb\n", a, b, VER);
 				}
 				else
 					exec("rrb\n", a, b, VER);
@@ -213,6 +267,10 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 	count[0]++;
 	count[1]--;
 }
+
+
+
+
 
 
 void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
@@ -228,9 +286,8 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 	{
 		if (steps > 0)
 		{
+			prepare_b(a, b, count[1]);
 			exec("pb\n", a, b, VER);
-			if ((*b)->nbr < (*b)->next->nbr)
-				exec("sb\n", a, b, VER);
 			count[0]--;
 			count[1]++;
 			steps--;			
