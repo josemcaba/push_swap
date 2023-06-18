@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	steps_nbr(int count, int pos)
+int	steps_nbr_to_top(int count, int pos)
 {
 	int	up;
 	int	down;
@@ -65,7 +65,7 @@ void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
 {
 	int	steps;
 
-	steps = steps_nbr(count[1], idx);
+	steps = steps_nbr_to_top(count[1], idx);
 	if (steps > 0)
 	{
 		idx = 0;
@@ -127,7 +127,7 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 				break ;
 			tmp_b = tmp_b->next;
 		}
-		steps = steps_nbr(count[1], i);
+		steps = steps_nbr_to_top(count[1], i);
 		while (steps)
 		{
 			if (steps > 0)
@@ -145,7 +145,7 @@ void	sort_push_b(t_stack **a, t_stack **b, int *count)
 	// }
 }
 
-void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
+void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
 {
 	int	i;
 
@@ -162,12 +162,14 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 			exec("rra\n", a, b, VER);
 			if ((i - pos) > 0)
 			{
-				if (count[1] < 1)
+				// if (count[1] < 1)
+				// {
 					exec("pb\n", a, b, VER);
-				if (count[1] > 1)
-					sort_push_b(a, b, count);
-				count[0]--;
-				count[1]++;
+					count[0]--;
+					count[1]++;
+				// }
+				// if (count[1] > 1)
+				//	sort_push_b(a, b, count);
 			}
 			i--;
 		}
@@ -180,7 +182,7 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 
 	if (pos > 1)
 	{
-		steps = steps_nbr(count[1], pos);
+		steps = steps_nbr_to_top(count[1], pos);
 		while (steps)
 		{
 			if (steps > 0)
@@ -201,7 +203,7 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 }
 
 
-void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
+void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 {
 	int	pos;
 	int	steps;
@@ -209,12 +211,14 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int count)
 	if (check_order(*a, *b))
 		return ;
 	pos = find(nbr, *a, *b);
-	steps = steps_nbr(count, pos);
+	steps = steps_nbr_to_top(count[0], pos);
 	while (steps)
 	{
 		if (steps > 0)
 		{
-			exec("ra\n", a, b, VER);
+			exec("pb\n", a, b, VER);
+			count[0]--;
+			count[1]++;
 			steps--;			
 		}
 		else
@@ -230,13 +234,13 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	int	i;
 	int	j;
 
-	place_first_nbr(a, b, vector[0], count[0]);
+	place_first_nbr(a, b, vector[0], count);
 	i = 1;
 	while (!check_order(*a, *b))
 	{
 		j = find(vector[i], *a, *b);
 		if (j >= 0)
-			move_up_a(a, b, count, j);
+			move_to_top_a(a, b, count, j);
 		else
 			move_up_b(a, b, count, -j);
 		i++;

@@ -41,7 +41,7 @@ void	dreverse(t_stack **a, t_stack **b, int ver);
 int		check_order(t_stack *a, t_stack *b);
 void	sort(t_stack **a, t_stack **b, int *vector, int *count);
 t_stack	*get_blast(t_stack *p);
-int		steps_nbr(int count, int pos);
+int		steps_nbr_to_top(int count, int pos);
 void	free_argv(char **argv);
 
 #endif
