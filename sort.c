@@ -192,7 +192,15 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 			}
 			else
 			{
-				exec("rrb\n", a, b, VER);
+				if (get_blast(*a)->next->nbr < (*a)->nbr)
+				{
+					exec("rrr\n", a, b, VER);
+					exec("pb\n", a, b, VER);
+					count[0]--;
+					count[1]++;
+				}
+				else
+					exec("rrb\n", a, b, VER);
 				steps++;
 			}
 		}
