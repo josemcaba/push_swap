@@ -61,28 +61,28 @@ void	swap_heads(t_stack **a, t_stack **b, int *count)
 		exec("sb\n", a, b, VER);
 }
 
-void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
-{
-	int	steps;
+// void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
+// {
+// 	int	steps;
 
-	steps = steps_nbr_to_top(count[1], idx);
-	if (steps > 0)
-	{
-		idx = 0;
-		while (idx++ < steps)
-			exec("rrb\n", a, b, VER);
-		exec("pb\n", a, b, VER);
-		idx = 0;
-		while (idx++ < (steps + 1))
-			exec("rb\n", a, b, VER);
-	}
-	else
-	{
-		while (idx--)
-			exec("rb\n", a, b, VER);
-		exec("pb\n", a, b, VER);
-	}
-}
+// 	steps = steps_nbr_to_top(count[1], idx);
+// 	if (steps > 0)
+// 	{
+// 		idx = 0;
+// 		while (idx++ < steps)
+// 			exec("rrb\n", a, b, VER);
+// 		exec("pb\n", a, b, VER);
+// 		idx = 0;
+// 		while (idx++ < (steps + 1))
+// 			exec("rb\n", a, b, VER);
+// 	}
+// 	else
+// 	{
+// 		while (idx--)
+// 			exec("rb\n", a, b, VER);
+// 		exec("pb\n", a, b, VER);
+// 	}
+// }
 
 // void	sort_push_b(t_stack **a, t_stack **b, int *count)
 // {
@@ -105,45 +105,45 @@ void	insert_b(t_stack **a, t_stack **b, int idx, int *count)
 // 		insert_b(a, b, i, count);
 // }
 
-void	sort_push_b(t_stack **a, t_stack **b, int *count)
-{
-	t_stack	*tmp_b;
-	int		i;
-	int		steps;
+// void	sort_push_b(t_stack **a, t_stack **b, int *count)
+// {
+// 	t_stack	*tmp_b;
+// 	int		i;
+// 	int		steps;
 
-	tmp_b = *b;
-	// if ((count[1] == 2) && ((tmp_b->nbr - 1) > tmp_b->next->nbr))
-	// {
-	// 	exec("rrb\n", a, b, VER);
-	// 	exec("pb\n", a, b, VER);
-	// }
-	// else
-	// {
-		i = 1;
-		while (tmp_b->next && (tmp_b->nbr > tmp_b->next->nbr))
-		{
-			i++;
-			if ((*a)->nbr < tmp_b->nbr)
-				break ;
-			tmp_b = tmp_b->next;
-		}
-		steps = steps_nbr_to_top(count[1], i);
-		while (steps)
-		{
-			if (steps > 0)
-			{
-				exec("rb\n", a, b, VER);
-				steps--;
-			}
-			else
-			{
-				exec("rrb\n", a, b, VER);
-				steps++;
-			}
-		}
-		exec("pb\n", a, b, VER);
-	// }
-}
+// 	tmp_b = *b;
+// 	// if ((count[1] == 2) && ((tmp_b->nbr - 1) > tmp_b->next->nbr))
+// 	// {
+// 	// 	exec("rrb\n", a, b, VER);
+// 	// 	exec("pb\n", a, b, VER);
+// 	// }
+// 	// else
+// 	// {
+// 		i = 1;
+// 		while (tmp_b->next && (tmp_b->nbr > tmp_b->next->nbr))
+// 		{
+// 			i++;
+// 			if ((*a)->nbr < tmp_b->nbr)
+// 				break ;
+// 			tmp_b = tmp_b->next;
+// 		}
+// 		steps = steps_nbr_to_top(count[1], i);
+// 		while (steps)
+// 		{
+// 			if (steps > 0)
+// 			{
+// 				exec("rb\n", a, b, VER);
+// 				steps--;
+// 			}
+// 			else
+// 			{
+// 				exec("rrb\n", a, b, VER);
+// 				steps++;
+// 			}
+// 		}
+// 		exec("pb\n", a, b, VER);
+// 	// }
+// }
 
 void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
 {
@@ -165,6 +165,8 @@ void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
 				// if (count[1] < 1)
 				// {
 					exec("pb\n", a, b, VER);
+					if ((*b)->nbr < (*b)->next->nbr)
+						exec("sb\n", a, b, VER);
 					count[0]--;
 					count[1]++;
 				// }
@@ -196,6 +198,8 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 				{
 					exec("rrr\n", a, b, VER);
 					exec("pb\n", a, b, VER);
+					if ((*b)->nbr < (*b)->next->nbr)
+						exec("sb\n", a, b, VER);
 					count[0]--;
 					count[1]++;
 				}
@@ -225,6 +229,8 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 		if (steps > 0)
 		{
 			exec("pb\n", a, b, VER);
+			if ((*b)->nbr < (*b)->next->nbr)
+				exec("sb\n", a, b, VER);
 			count[0]--;
 			count[1]++;
 			steps--;			
