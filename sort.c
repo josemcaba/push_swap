@@ -17,6 +17,8 @@ int	steps_nbr_to_top(int count, int pos)
 	int	up;
 	int	down;
 
+	if (pos < 0)
+		pos = -pos;
 	up = pos - 1;
 	down = count - pos + 1;
 	if (up <= down)
@@ -50,22 +52,26 @@ int	find(int nbr, t_stack *a, t_stack *b)
 
 int	find_b_hole(int nbr, t_stack *b)
 {
+	int	min;
+	int	max;
 	int prev;
 	int	next;
 	t_stack *backup;
 
 	backup = b;
-	prev = nbr;
-	next = nbr;
+	min = nbr;
+	max = nbr;
 	while (b)
 	{
-		if (b->nbr < prev)
-			prev = b->nbr;
-		if (b->nbr > next)
-			next = b->nbr;
+		if (b->nbr < min)
+			min = b->nbr;
+		if (b->nbr > max)
+			max = b->nbr;
 		b = b->next;
 	}
 	b = backup;
+	prev = min;
+	next = max;
 	while (b)
 	{
 		if ((prev < b->nbr) && (b->nbr < nbr))
@@ -75,7 +81,9 @@ int	find_b_hole(int nbr, t_stack *b)
 		b = b->next;
 	}
 	if (prev == nbr)
-		return(next);
+		return(max);
+	// if (next == nbr)
+	// 	return (max);
 	return (prev);
 }
 
@@ -84,6 +92,8 @@ void prepare_b(t_stack **a, t_stack **b, int count)
 	int	pos;
 	int	steps;
 
+	if (count <= 1)
+		return ;
 	pos = find(find_b_hole((*a)->nbr, *b), *a, *b);
 	steps = steps_nbr_to_top(count, pos);
 	while (steps)
@@ -248,16 +258,17 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 			}
 			else
 			{
-				if (get_blast(*a)->next->nbr < (*a)->nbr)
-				{
-					exec("rrr\n", a, b, VER);
-					exec("pb\n", a, b, VER);
-					count[0]--;
-					count[1]++;
-					if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
-						exec("sb\n", a, b, VER);
-				}
-				else
+				// if (get_blast(*a)->next->nbr < (*a)->nbr)
+				// {
+				// 	exec("rrb\n", a, b, VER);
+				// 	prepare_b(a, b, count[1]);
+				// 	exec("pb\n", a, b, VER);
+				// 	count[0]--;
+				// 	count[1]++;
+				// 	if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
+				// 		exec("sb\n", a, b, VER);
+				// }
+				// else
 					exec("rrb\n", a, b, VER);
 				steps++;
 			}
@@ -286,10 +297,13 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 	{
 		if (steps > 0)
 		{
-			prepare_b(a, b, count[1]);
-			exec("pb\n", a, b, VER);
-			count[0]--;
-			count[1]++;
+			// prepare_b(a, b, count[1]);
+			// exec("pb\n", a, b, VER);
+			// if ((count[1] == 2) && ((*b)->nbr < (*b)->next->nbr))
+			// 	exec("sb\n", a, b, VER);
+			// count[0]--;
+			// count[1]++;
+			exec("ra\n", a, b, VER);
 			steps--;			
 		}
 		else
