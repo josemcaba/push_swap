@@ -256,17 +256,6 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 			}
 			else
 			{
-				// if (get_blast(*a)->next->nbr < (*a)->nbr)
-				// {
-				// 	exec("rrb\n", a, b, VER);
-				// 	prepare_b(a, b, count[1]);
-				// 	exec("pb\n", a, b, VER);
-				// 	count[0]--;
-				// 	count[1]++;
-				// 	if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
-				// 		exec("sb\n", a, b, VER);
-				// }
-				// else
 					exec("rrb\n", a, b, VER);
 				steps++;
 			}
@@ -312,20 +301,84 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 {
 	int	i;
-	int	j;
+	int pivot;
+	int quantity;
+	int	pos;
+	int	steps;
 
-	place_first_nbr(a, b, vector[0], count);
-	i = 1;
-	while (!check_order(*a, *b))
+	quantity = count[0];
+
+	pivot = vector[(quantity / 2)];
+    ft_printf("pivot1 = %d\n", pivot);
+	i = 0;
+	while (i < (quantity / 2))
 	{
-		j = find(vector[i], *a, *b);
-		if (j >= 0)
-			move_to_top_a(a, b, count, j);
+		if ((*a)->nbr >= pivot)
+			exec("ra\n", a, b, VER);
 		else
-			move_up_b(a, b, count, -j);
-		i++;
+		{
+			exec("pb\n", a, b, VER);
+			i++;
+		}
 	}
+
+	pos = find(pivot, *a, *b);
+
+		steps = steps_nbr_to_top(count[0], pos);
+		while (steps)
+		{
+			if (steps > 0)
+			{
+				exec("ra\n", a, b, VER);
+				steps--;
+			}
+			else
+			{
+					exec("rra\n", a, b, VER);
+				steps++;
+			}
+		}
+	
+	pivot = vector[(quantity / 4)];
+	ft_printf("pivot2 = %d\n", pivot);
+	// ft_printf("pivot = %d\n", quantity / 4);
+	// ft_printf("pivot = %d\n", quantity % 2);
+	// ft_printf("pivot = %d\n", quantity / 4 + quantity % 2);
+	i = 0;
+	while (i < (quantity / 4))
+	{
+		// ft_printf("1");
+		if ((*b)->nbr < pivot)
+		{
+			// ft_printf("2");
+			exec("rb\n", a, b, VER);
+		}
+		else
+		{
+			// ft_printf("3");
+			exec("pa\n", a, b, VER);
+			i++;
+		}
+	}
+	while (*b)
+		exec("pa\n", a, b, VER);
+	
 }

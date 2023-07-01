@@ -38,7 +38,7 @@ static int	*sort_vector(t_stack *nodes, int count)
 	i = 0;
 	while ((i < count - 1) && (count > 1))
 	{
-		if (vector[i] < vector[i + 1])
+		if (vector[i] > vector[i + 1])
 		{
 			tmp = vector[i];
 			vector[i] = vector[i + 1];
