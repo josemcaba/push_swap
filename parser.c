@@ -19,7 +19,7 @@ static int	check_int_nbrs(int argc, char **argv)
 
 	i = 1;
 	while (i < argc)
-	{	
+	{
 		j = 0;
 		if ((argv[i][j] == '+') || (argv[i][j] == '-'))
 			j++;
@@ -45,7 +45,7 @@ static int	check_dup(int argc, char **argv)
 
 	i = 1;
 	while (i < argc)
-	{	
+	{
 		j = 1;
 		while (j < i)
 		{
