@@ -27,15 +27,15 @@ int	steps_to_top(int count, int pos)
 		return (-down);
 }
 
-int	steps_in_a(int nbr, t_stack *a, t_stack *b, int *count)
+int	steps_in_b(int nbr, t_stack *a, t_stack *b, int *count)
 {
 	int	steps;
 	int	pos;
 
 	pos = find_pos_nbr(nbr, a, b);
-	if (pos <= 0)
+	if (pos >= 0)
 		return (0);
-	steps = steps_to_top(count[0], pos);
+	steps = steps_to_top(count[1], pos);
 	if (steps < 0)
 		steps *= -1;
 	return (steps);
@@ -55,19 +55,17 @@ void	find_min_max(int nbr, t_stack *b, int *min, int *max)
 	}
 }
 
-int	steps_in_b(int nbr, t_stack *a, t_stack *b, int *count)
+int	steps_in_a(int nbr, t_stack *a, t_stack *b, int *count)
 {
 	int	steps;
 	int	pos;
 	int	hole;
 
-	if (count[1] <= 1)
-		return (0);
-	hole = find_b_hole(nbr, b);
+	hole = find_a_hole(nbr, a);
 	pos = find_pos_nbr(hole, a, b);
-	if (pos >= 0)
+	if (pos <= 0)
 		return (0);
-	steps = steps_to_top(count[1], -pos);
+	steps = steps_to_top(count[0], pos);
 	if (steps < 0)
 		steps *= -1;
 	return (steps);
@@ -80,15 +78,15 @@ int	get_next_nbr(t_stack *a, t_stack *b, int *count)
 	int		current_steps;
 	t_stack	*tmp_stk;
 
-	tmp_stk = a;
+	tmp_stk = b;
 	next_nbr = tmp_stk->nbr;
-	steps = steps_in_a(next_nbr, a, b, count);
-	steps += steps_in_b(next_nbr, a, b, count);
+	steps = steps_in_b(next_nbr, a, b, count);
+	steps += steps_in_a(next_nbr, a, b, count);
 	tmp_stk = tmp_stk->next;
 	while (tmp_stk && steps)
 	{
-		current_steps = steps_in_a(tmp_stk->nbr, a, b, count);
-		current_steps += steps_in_b(tmp_stk->nbr, a, b, count);
+		current_steps = steps_in_b(tmp_stk->nbr, a, b, count);
+		current_steps += steps_in_a(tmp_stk->nbr, a, b, count);
 		if (current_steps < steps)
 			next_nbr = tmp_stk->nbr;
 		tmp_stk = tmp_stk->next;

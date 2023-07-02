@@ -12,27 +12,50 @@
 
 #include "push_swap.h"
 
-int	find_b_hole(int nbr, t_stack *b)
+// int	find_b_hole(int nbr, t_stack *b)
+// {
+// 	int	min;
+// 	int	max;
+// 	int	prev;
+// 	int	next;
+
+// 	find_min_max(nbr, b, &min, &max);
+// 	prev = min;
+// 	next = max;
+// 	while (b)
+// 	{
+// 		if ((prev < b->nbr) && (b->nbr < nbr))
+// 			prev = b->nbr;
+// 		if ((nbr < b->nbr) && (b->nbr < next))
+// 			next = b->nbr;
+// 		b = b->next;
+// 	}
+// 	if (prev == nbr)
+// 		return (max);
+// 	return (prev);
+// }
+
+int	find_a_hole(int nbr, t_stack *a)
 {
 	int	min;
 	int	max;
 	int	prev;
 	int	next;
 
-	find_min_max(nbr, b, &min, &max);
+	find_min_max(nbr, a, &min, &max);
 	prev = min;
 	next = max;
-	while (b)
+	while (a)
 	{
-		if ((prev < b->nbr) && (b->nbr < nbr))
-			prev = b->nbr;
-		if ((nbr < b->nbr) && (b->nbr < next))
-			next = b->nbr;
-		b = b->next;
+		if ((prev > a->nbr) && (a->nbr > nbr))
+			prev = a->nbr;
+		if ((nbr > a->nbr) && (a->nbr > next))
+			next = a->nbr;
+		a = a->next;
 	}
 	if (prev == nbr)
-		return (max);
-	return (prev);
+		return (min);
+	return (next);
 }
 
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
@@ -110,23 +133,24 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	int	next_nbr;
 	int	hole;
 
-	while (!check_order(*a, *b) && count[0])
+	set_up(a, b, count);
+	while (!check_order(*a, *b) && count[1])
 	{
 		next_nbr = get_next_nbr(*a, *b, count);
 		pos = find_pos_nbr(next_nbr, *a, *b);
-		move_up_a(a, b, count, pos);
-		if (count[1] > 1)
+		move_up_b(a, b, count, -pos);
+		if (count[0] > 1)
 		{
-			hole = find_b_hole((*a)->nbr, *b);
+			hole = find_a_hole(next_nbr, *b);
 			pos = find_pos_nbr(hole, *a, *b);
-			move_up_b(a, b, count, -pos);
+			move_up_a(a, b, count, pos);
 		}
-		exec("pb\n", a, b, VER);
-		count[0]--;
-		count[1]++;
-	}
-	pos = find_pos_nbr(vector[0], *a, *b);
-	move_up_b(a, b, count, -pos);
-	while (*b)
 		exec("pa\n", a, b, VER);
+		count[0]++;
+		count[1]--;
+	}
+	pos = find_pos_nbr(vector[count[0] - 1], *a, *b);
+	move_up_a(a, b, count, pos);
+//	while (*b)
+//		exec("pa\n", a, b, VER);
 }

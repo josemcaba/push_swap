@@ -22,7 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 # ifndef VER_CHECK
-#  define VER_CHECK 1
+#  define VER_CHECK 0
 # endif
 
 # define VER 1
@@ -43,9 +43,10 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count);
 t_stack	*get_blast(t_stack *p);
 int		steps_to_top(int count, int pos);
 void	free_argv(char **argv);
-int		find_b_hole(int nbr, t_stack *b);
+int		find_a_hole(int nbr, t_stack *b);
 int		get_next_nbr(t_stack *a, t_stack *b, int *count);
 int		find_pos_nbr(int nbr, t_stack *a, t_stack *b);
 void	find_min_max(int nbr, t_stack *b, int *min, int *max);
+void	set_up(t_stack **a, t_stack **b, int *count);
 
 #endif
