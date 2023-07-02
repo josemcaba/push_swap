@@ -34,6 +34,7 @@ SRC	= 	push_swap.c			\
 		rules_rot_rev.c		\
 		check_order.c		\
 		sort.c				\
+		steps.c 			\
 		exec.c
 
 SRC_BONUS	= 	checker.c			\
@@ -42,6 +43,7 @@ SRC_BONUS	= 	checker.c			\
 				rules_push_swap.c	\
 				check_order.c		\
 				rules_rot_rev.c		\
+				steps.c 			\
 				exec.c
 		
 OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)

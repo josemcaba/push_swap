@@ -12,102 +12,79 @@
 
 #include "push_swap.h"
 
-int	steps_nbr_to_top(int count, int pos)
-{
-	int	up;
-	int	down;
+// int	steps_nbr_to_top(int count, int pos)
+// {
+// 	int	up;
+// 	int	down;
 
-	if (pos < 0)
-		pos = -pos;
-	up = pos - 1;
-	down = count - pos + 1;
-	if (up <= down)
-		return (up);
-	else
-		return (-down);
-}
+// 	if (pos < 0)
+// 		pos = -pos;
+// 	up = pos - 1;
+// 	down = count - pos + 1;
+// 	if (up <= down)
+// 		return (up);
+// 	else
+// 		return (-down);
+// }
 
-int	find(int nbr, t_stack *a, t_stack *b)
-{
-	int	j;
+// int	find(int nbr, t_stack *a, t_stack *b)
+// {
+// 	int	j;
 
-	j = 0;
-	while (a)
-	{
-		j++;
-		if (a->nbr == nbr)
-			return (j);
-		a = a->next;
-	}
-	j = 0;
-	while (b)
-	{
-		j++;
-		if (b->nbr == nbr)
-			return (-j);
-		b = b->next;
-	}
-	return (0);
-}
+// 	j = 0;
+// 	while (a)
+// 	{
+// 		j++;
+// 		if (a->nbr == nbr)
+// 			return (j);
+// 		a = a->next;
+// 	}
+// 	j = 0;
+// 	while (b)
+// 	{
+// 		j++;
+// 		if (b->nbr == nbr)
+// 			return (-j);
+// 		b = b->next;
+// 	}
+// 	return (0);
+// }
 
-int	find_b_hole(int nbr, t_stack *b)
-{
-	int	min;
-	int	max;
-	int prev;
-	int	next;
-	t_stack *backup;
+// int	find_b_hole(int nbr, t_stack *b)
+// {
+// 	int	min;
+// 	int	max;
+// 	int prev;
+// 	int	next;
+// 	t_stack *backup;
 
-	backup = b;
-	min = nbr;
-	max = nbr;
-	while (b)
-	{
-		if (b->nbr < min)
-			min = b->nbr;
-		if (b->nbr > max)
-			max = b->nbr;
-		b = b->next;
-	}
-	b = backup;
-	prev = min;
-	next = max;
-	while (b)
-	{
-		if ((prev < b->nbr) && (b->nbr < nbr))
-			prev = b->nbr;
-		if ((nbr < b->nbr) && (b->nbr < next))
-			next = b->nbr;
-		b = b->next;
-	}
-	if (prev == nbr)
-		return(max);
-	return (prev);
-}
+// 	backup = b;
+// 	min = nbr;
+// 	max = nbr;
+// 	while (b)
+// 	{
+// 		if (b->nbr < min)
+// 			min = b->nbr;
+// 		if (b->nbr > max)
+// 			max = b->nbr;
+// 		b = b->next;
+// 	}
+// 	b = backup;
+// 	prev = min;
+// 	next = max;
+// 	while (b)
+// 	{
+// 		if ((prev < b->nbr) && (b->nbr < nbr))
+// 			prev = b->nbr;
+// 		if ((nbr < b->nbr) && (b->nbr < next))
+// 			next = b->nbr;
+// 		b = b->next;
+// 	}
+// 	if (prev == nbr)
+// 		return(max);
+// 	return (prev);
+// }
 
-void prepare_b(t_stack **a, t_stack **b, int count)
-{
-	int	pos;
-	int	steps;
-
-	if (count <= 1)
-		return ;
-	pos = find(find_b_hole((*a)->nbr, *b), *a, *b);
-	steps = steps_nbr_to_top(count, pos);
-	while (steps)
-	{
-		if (steps > 0)
-		{
-			exec("rb\n", a, b, VER);	
-			steps--;
-		}
-		else
-		{
-			exec("rrb\n", a, b, VER);
-			steps++;			
-		}
-	}
-}
 
 void	swap_heads(t_stack **a, t_stack **b, int *count)
 {
@@ -206,39 +183,39 @@ void	swap_heads(t_stack **a, t_stack **b, int *count)
 // 	// }
 // }
 
-void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
-{
-	int	i;
+// void	move_to_top_a(t_stack **a, t_stack **b, int *count, int pos)
+// {
+// 	int	i;
 
-	if ((pos == 2) && (count[1] == 0))
-		exec("sa\n", a, b, VER);
-	else
-	{
-		i = count[0];
-		while ((i - pos) >= 0)
-		{
-			// if ((count[1] > 1) && ((*b)->nbr < get_blast(*b)->next->nbr))
-			// 	exec("rrr\n", a, b, VER);
-			// else
-			exec("rra\n", a, b, VER);
-			if ((i - pos) > 0)
-			{
-				// if (count[1] < 1)
-				// {
-					prepare_b(a, b, count[1]);
-					exec("pb\n", a, b, VER);
-					count[0]--;
-					count[1]++;
-					// if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
-					// 	exec("sb\n", a, b, VER);
-				// }
-				// if (count[1] > 1)
-				//	sort_push_b(a, b, count);
-			}
-			i--;
-		}
-	}
-}
+// 	if ((pos == 2) && (count[1] == 0))
+// 		exec("sa\n", a, b, VER);
+// 	else
+// 	{
+// 		i = count[0];
+// 		while ((i - pos) >= 0)
+// 		{
+// 			// if ((count[1] > 1) && ((*b)->nbr < get_blast(*b)->next->nbr))
+// 			// 	exec("rrr\n", a, b, VER);
+// 			// else
+// 			exec("rra\n", a, b, VER);
+// 			if ((i - pos) > 0)
+// 			{
+// 				// if (count[1] < 1)
+// 				// {
+// 					prepare_b(a, b, count[1]);
+// 					exec("pb\n", a, b, VER);
+// 					count[0]--;
+// 					count[1]++;
+// 					// if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
+// 					// 	exec("sb\n", a, b, VER);
+// 				// }
+// 				// if (count[1] > 1)
+// 				//	sort_push_b(a, b, count);
+// 			}
+// 			i--;
+// 		}
+// 	}
+// }
 
 void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 {
@@ -246,7 +223,7 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 
 	if (pos > 1)
 	{
-		steps = steps_nbr_to_top(count[1], pos);
+		steps = steps_to_top(count[1], pos);
 		while (steps)
 		{
 			if (steps > 0)
@@ -256,76 +233,132 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 			}
 			else
 			{
-				// if (get_blast(*a)->next->nbr < (*a)->nbr)
-				// {
-				// 	exec("rrb\n", a, b, VER);
-				// 	prepare_b(a, b, count[1]);
-				// 	exec("pb\n", a, b, VER);
-				// 	count[0]--;
-				// 	count[1]++;
-				// 	if ((count[1] > 1) && ((*b)->nbr < (*b)->next->nbr))
-				// 		exec("sb\n", a, b, VER);
-				// }
-				// else
-					exec("rrb\n", a, b, VER);
+				exec("rrb\n", a, b, VER);
 				steps++;
 			}
 		}
 	}
-	exec("pa\n", a, b, VER);
-	count[0]++;
-	count[1]--;
 }
 
-
-
-
-
-
-void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
+void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 {
-	int	pos;
 	int	steps;
 
-	if (check_order(*a, *b))
-		return ;
-	pos = find(nbr, *a, *b);
-	steps = steps_nbr_to_top(count[0], pos);
-	while (steps)
+	if (pos > 1)
 	{
-		if (steps > 0)
+		steps = steps_to_top(count[0], pos);
+		while (steps)
 		{
-			// prepare_b(a, b, count[1]);
-			// exec("pb\n", a, b, VER);
-			// if ((count[1] == 2) && ((*b)->nbr < (*b)->next->nbr))
-			// 	exec("sb\n", a, b, VER);
-			// count[0]--;
-			// count[1]++;
-			exec("ra\n", a, b, VER);
-			steps--;			
-		}
-		else
-		{
-			exec("rra\n", a, b, VER);
-			steps++;			
+			if (steps > 0)
+			{
+				exec("ra\n", a, b, VER);
+				steps--;
+			}
+			else
+			{
+				exec("rra\n", a, b, VER);
+				steps++;
+			}
 		}
 	}
 }
+
+void prepare_b(t_stack **a, t_stack **b, int *count)
+{
+	int	pos;
+	int	hole;
+
+	if (count[1] <= 1)
+		return ;
+	hole = find_b_hole((*a)->nbr, *b);
+	pos = find_pos_nbr(hole, *a, *b);
+	move_up_b(a, b, count, -pos);
+}
+
+
+
+
+// void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
+// {
+// 	int	pos;
+// 	int	steps;
+
+// 	if (check_order(*a, *b))
+// 		return ;
+// 	pos = find(nbr, *a, *b);
+// 	steps = steps_nbr_to_top(count[0], pos);
+// 	while (steps)
+// 	{
+// 		if (steps > 0)
+// 		{
+// 			// prepare_b(a, b, count[1]);
+// 			// exec("pb\n", a, b, VER);
+// 			// if ((count[1] == 2) && ((*b)->nbr < (*b)->next->nbr))
+// 			// 	exec("sb\n", a, b, VER);
+// 			// count[0]--;
+// 			// count[1]++;
+// 			exec("ra\n", a, b, VER);
+// 			steps--;			
+// 		}
+// 		else
+// 		{
+// 			exec("rra\n", a, b, VER);
+// 			steps++;			
+// 		}
+// 	}
+// }
 
 void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 {
-	int	i;
-	int	j;
+	int	pos;
+	int next_nbr;
 
-	place_first_nbr(a, b, vector[0], count);
-	i = 1;
-	while (!check_order(*a, *b))
+	while (!check_order(*a, *b) && count[0])
 	{
-		j = find(vector[i], *a, *b);
-		if (j >= 0)
-			move_to_top_a(a, b, count, j);
-		else
-			move_up_b(a, b, count, -j);
-		i++;
+		next_nbr = get_next_nbr(*a, *b, count);
+		pos = find_pos_nbr(next_nbr, *a, *b);
+		move_up_a(a, b, count, pos);
+		prepare_b(a, b, count);
+		exec("pb\n", a, b, VER);
+		count[0]--;
+		count[1]++;
 	}
+	pos = find_pos_nbr(vector[0], *a, *b);
+	move_up_b(a, b, count, -pos);
+	while (*b)
+		exec("pa\n", a, b, VER);
 }
+
+// void	sort(t_stack **a, t_stack **b, int *vector, int *count)
+// {
+// 	int	i;
+// 	int	steps;
+
+// 	if (!check_order(*a, *b))
+// 	{
+// 		while (*a)
+// 		{
+// 			prepare_b(a, b, count[1]);
+// 			exec("pb\n", a, b, VER);
+// 			count[0]--;
+// 			count[1]++;
+// 		}
+// 		i = find(vector[0], *a, *b);
+// 		steps = steps_nbr_to_top(count[1], i);
+// 		while (steps)
+// 		{
+// 			if (steps > 0)
+// 			{
+// 				exec("rb\n", a, b, VER);
+// 				steps--;			
+// 			}
+// 			else
+// 			{
+// 				exec("rrb\n", a, b, VER);
+// 				steps++;			
+// 			}
+// 		}
+// 		while (*b)
+// 			exec("pa\n", a, b, VER);
+// 	}
+// }
