@@ -316,31 +316,32 @@ void	place_first_nbr(t_stack **a, t_stack **b, int nbr, int *count)
 
 
 
-void	sort(t_stack **a, t_stack **b, int *vector, int *count)
+void	ciclo(t_stack **a, t_stack **b, int *vector, int *count)
 {
 	int	i;
-	int pivot;
+	int pivot1, pivot2, pivot3;
 	int quantity;
 	int	pos;
 	int	steps;
 
 	quantity = count[0];
 
-	pivot = vector[(quantity / 2)];
-    ft_printf("pivot1 = %d\n", pivot);
+	pivot1 = vector[(quantity / 2)];
+    ft_printf("pivot1 = %d\n", pivot1);
 	i = 0;
 	while (i < (quantity / 2))
 	{
-		if ((*a)->nbr >= pivot)
+		if ((*a)->nbr >= pivot1)
 			exec("ra\n", a, b, VER);
 		else
 		{
 			exec("pb\n", a, b, VER);
+			count[1]++;
 			i++;
 		}
 	}
 
-	pos = find(pivot, *a, *b);
+	pos = find(pivot1, *a, *b);
 
 		steps = steps_nbr_to_top(count[0], pos);
 		while (steps)
@@ -357,16 +358,16 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 			}
 		}
 	
-	pivot = vector[(quantity / 4)];
-	ft_printf("pivot2 = %d\n", pivot);
-	// ft_printf("pivot = %d\n", quantity / 4);
-	// ft_printf("pivot = %d\n", quantity % 2);
+	pivot2 = vector[(quantity / 4)];
+	ft_printf("pivot2 = %d\n", pivot2);
+	// ft_printf("qty/4 = %d\n", quantity / 4);
+	// ft_printf("qty%%2 = %d\n", quantity % 2);
 	// ft_printf("pivot = %d\n", quantity / 4 + quantity % 2);
 	i = 0;
 	while (i < (quantity / 4))
 	{
 		// ft_printf("1");
-		if ((*b)->nbr <= pivot)
+		if ((*b)->nbr <= pivot2)
 		{
 			// ft_printf("2");
 			exec("rb\n", a, b, VER);
@@ -375,10 +376,85 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 		{
 			// ft_printf("3");
 			exec("pa\n", a, b, VER);
+			count[1]--;
 			i++;
 		}
 	}
+		pos = find(pivot2, *a, *b);
+
+		steps = steps_nbr_to_top(count[1], pos);
+		while (steps)
+		{
+			if (steps > 0)
+			{
+				exec("rb\n", a, b, VER);
+				steps--;
+			}
+			else
+			{
+					exec("rrb\n", a, b, VER);
+				steps++;
+			}
+		}
 	while (*b)
 		exec("pa\n", a, b, VER);
-	
+	count[1] = 0;
+
+	while (get_blast(*a)->next->nbr != pivot1)
+	{
+		exec("rra\n", a, b, VER);
+		exec("pb\n", a, b, VER);
+		count[1]++;
+	}
+/*********************************/
+	pivot3 = vector[quantity - (quantity / 4) - 1];
+	ft_printf("pivot3 = %d\n", pivot3);
+	// ft_printf("qty/4 = %d\n", quantity / 4);
+	// ft_printf("qty%%2 = %d\n", quantity % 2);
+	// ft_printf("pivot = %d\n", quantity / 4 + quantity % 2);
+	i = 0;
+	while (i < (quantity / 4))
+	{
+		// ft_printf("1");
+		if ((*b)->nbr <= pivot3)
+		{
+			// ft_printf("2");
+			exec("rb\n", a, b, VER);
+		}
+		else
+		{
+			// ft_printf("3");
+			exec("pa\n", a, b, VER);
+			count[1]--;
+			i++;
+		}
+	}
+		pos = find(pivot3, *a, *b);
+
+		steps = steps_nbr_to_top(count[1], pos);
+		while (steps)
+		{
+			if (steps > 0)
+			{
+				exec("rb\n", a, b, VER);
+				steps--;
+			}
+			else
+			{
+					exec("rrb\n", a, b, VER);
+				steps++;
+			}
+		}
+	while (*b)
+		exec("pa\n", a, b, VER);
+	count[1] = 0;
+/*****************************/
+	while ((*a)->nbr > pivot1)
+		exec("ra\n", a, b, VER);
+
+}
+
+void	sort(t_stack **a, t_stack **b, int *vector, int *count)
+{
+	ciclo(a, b, vector, count);
 }
