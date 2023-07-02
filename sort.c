@@ -366,7 +366,7 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	while (i < (quantity / 4))
 	{
 		// ft_printf("1");
-		if ((*b)->nbr < pivot)
+		if ((*b)->nbr <= pivot)
 		{
 			// ft_printf("2");
 			exec("rb\n", a, b, VER);
