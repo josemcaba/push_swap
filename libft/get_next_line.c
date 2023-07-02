@@ -69,7 +69,7 @@ static ssize_t	add_node_to_list(char *buffer, t_glist **list, ssize_t read_len)
 	i = 0;
 	len = 0;
 	while ((i < read_len) && (len >= 0))
-	{	
+	{
 		len = str_len(&(buffer[i]), &nl_flag);
 		content = (char *)malloc(len * sizeof(char) + 1);
 		if (!content)

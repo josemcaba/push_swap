@@ -44,7 +44,8 @@ t_stack	*get_blast(t_stack *p);
 int		steps_to_top(int count, int pos);
 void	free_argv(char **argv);
 int		find_b_hole(int nbr, t_stack *b);
-int 	get_next_nbr(t_stack *a, t_stack *b, int *count);
+int		get_next_nbr(t_stack *a, t_stack *b, int *count);
 int		find_pos_nbr(int nbr, t_stack *a, t_stack *b);
+void	find_min_max(int nbr, t_stack *b, int *min, int *max);
 
 #endif

@@ -43,6 +43,7 @@ SRC_BONUS	= 	checker.c			\
 				rules_push_swap.c	\
 				check_order.c		\
 				rules_rot_rev.c		\
+				sort.c				\
 				steps.c 			\
 				exec.c
 		

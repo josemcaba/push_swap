@@ -12,29 +12,6 @@
 
 #include "push_swap.h"
 
-int	find_pos_nbr(int nbr, t_stack *a, t_stack *b)
-{
-	int	pos;
-
-	pos = 0;
-	while (a)
-	{
-		pos++;
-		if (a->nbr == nbr)
-			return (pos);
-		a = a->next;
-	}
-	pos = 0;
-	while (b)
-	{
-		pos++;
-		if (b->nbr == nbr)
-			return (-pos);
-		b = b->next;
-	}
-	return (0);
-}
-
 int	steps_to_top(int count, int pos)
 {
 	int	up;
@@ -75,50 +52,28 @@ void	find_min_max(int nbr, t_stack *b, int *min, int *max)
 		if (b->nbr > *max)
 			*max = b->nbr;
 		b = b->next;
-	}	
-}
-
-int	find_b_hole(int nbr, t_stack *b)
-{
-	int	min;
-	int	max;
-	int prev;
-	int	next;
-
-	find_min_max(nbr, b, &min, &max);
-	prev = min;
-	next = max;
-	while (b)
-	{
-		if ((prev < b->nbr) && (b->nbr < nbr))
-			prev = b->nbr;
-		if ((nbr < b->nbr) && (b->nbr < next))
-			next = b->nbr;
-		b = b->next;
 	}
-	if (prev == nbr)
-		return(max);
-	return (prev);
 }
 
-int steps_in_b(int nbr, t_stack *a, t_stack *b, int *count)
+int	steps_in_b(int nbr, t_stack *a, t_stack *b, int *count)
 {
 	int	steps;
 	int	pos;
+	int	hole;
 
 	if (count[1] <= 1)
 		return (0);
-	nbr = find_b_hole(nbr, b);
-	pos = find_pos_nbr(nbr, a, b);
+	hole = find_b_hole(nbr, b);
+	pos = find_pos_nbr(hole, a, b);
 	if (pos >= 0)
 		return (0);
 	steps = steps_to_top(count[1], -pos);
 	if (steps < 0)
 		steps *= -1;
-	return (steps);	
+	return (steps);
 }
 
-int get_next_nbr(t_stack *a, t_stack *b, int *count)
+int	get_next_nbr(t_stack *a, t_stack *b, int *count)
 {
 	int		next_nbr;
 	int		steps;

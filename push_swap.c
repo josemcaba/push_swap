@@ -59,17 +59,6 @@ int	main(int argc, char *argv[])
 	int		*vector;
 	int		count[2];
 
-	// argc = 11;
-	// argv[1] = "5";
-	// argv[2] = "66";
-	// argv[3] = "7";
-	// argv[4] = "3";
-	// argv[5] = "2";
-	// argv[6] = "1";
-	// argv[7] = "56";
-	// argv[8] = "6";
-	// argv[9] = "27";
-	// argv[10] = "8";
 	if (argc == 1)
 		return (0);
 	parse_argv(&argc, &argv);
