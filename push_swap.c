@@ -36,7 +36,7 @@ static int	*sort_vector(t_stack *nodes, int count)
 		return (NULL);
 	load_vector(&vector, nodes);
 	i = 0;
-	while ((i < count) && (count > 1))
+	while ((i < count - 1) && (count > 1))
 	{
 		if (vector[i] < vector[i + 1])
 		{
