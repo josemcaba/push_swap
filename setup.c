@@ -37,7 +37,6 @@ void	set_up(t_stack **a, t_stack **b, int *count)
 {
 	if (!check_order(*a, *b) && (count[0] == 2))
 		exec("sa\n", a, b, VER);
-
 	while (!check_order(*a, *b) && (count[0] > 3))
 	{
 		exec("pb\n", a, b, VER);

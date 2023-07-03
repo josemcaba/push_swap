@@ -87,7 +87,10 @@ int	get_next_nbr(t_stack *a, t_stack *b, int *count)
 		current_steps = steps_in_b(tmp_stk->nbr, a, b, count);
 		current_steps += steps_in_a(tmp_stk->nbr, a, b, count);
 		if (current_steps < steps)
+		{
 			next_nbr = tmp_stk->nbr;
+			steps = current_steps;
+		}
 		tmp_stk = tmp_stk->next;
 	}
 	return (next_nbr);

@@ -149,6 +149,4 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	}
 	pos = find_pos_nbr(vector[count[0] - 1], *a, *b);
 	move_up_a(a, b, count, pos);
-//	while (*b)
-//		exec("pa\n", a, b, VER);
 }
