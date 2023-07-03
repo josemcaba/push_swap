@@ -41,17 +41,17 @@ int	steps_in_b(int nbr, t_stack *a, t_stack *b, int *count)
 	return (steps);
 }
 
-void	find_min_max(int nbr, t_stack *b, int *min, int *max)
+void	find_min_max(int nbr, t_stack *a, int *min, int *max)
 {
 	*min = nbr;
 	*max = nbr;
-	while (b)
+	while (a)
 	{
-		if (b->nbr < *min)
-			*min = b->nbr;
-		if (b->nbr > *max)
-			*max = b->nbr;
-		b = b->next;
+		if (a->nbr < *min)
+			*min = a->nbr;
+		if (a->nbr > *max)
+			*max = a->nbr;
+		a = a->next;
 	}
 }
 
@@ -82,7 +82,6 @@ int	get_next_nbr(t_stack *a, t_stack *b, int *count)
 	next_nbr = tmp_stk->nbr;
 	steps = steps_in_b(next_nbr, a, b, count);
 	steps += steps_in_a(next_nbr, a, b, count);
-	tmp_stk = tmp_stk->next;
 	while (tmp_stk && steps)
 	{
 		current_steps = steps_in_b(tmp_stk->nbr, a, b, count);

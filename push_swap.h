@@ -22,7 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 # ifndef VER_CHECK
-#  define VER_CHECK 0
+#  define VER_CHECK 1
 # endif
 
 # define VER 1

@@ -47,13 +47,13 @@ int	find_a_hole(int nbr, t_stack *a)
 	next = max;
 	while (a)
 	{
-		if ((prev > a->nbr) && (a->nbr > nbr))
+		if ((prev < a->nbr) && (a->nbr < nbr))
 			prev = a->nbr;
-		if ((nbr > a->nbr) && (a->nbr > next))
+		if ((nbr < a->nbr) && (a->nbr < next))
 			next = a->nbr;
 		a = a->next;
 	}
-	if (prev == nbr)
+	if (max == nbr)
 		return (min);
 	return (next);
 }
@@ -85,6 +85,7 @@ void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
 {
 	int	steps;
 
+	pos *= -1;
 	if (pos > 1)
 	{
 		steps = steps_to_top(count[1], pos);
@@ -138,13 +139,10 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 	{
 		next_nbr = get_next_nbr(*a, *b, count);
 		pos = find_pos_nbr(next_nbr, *a, *b);
-		move_up_b(a, b, count, -pos);
-		if (count[0] > 1)
-		{
-			hole = find_a_hole(next_nbr, *b);
-			pos = find_pos_nbr(hole, *a, *b);
-			move_up_a(a, b, count, pos);
-		}
+		move_up_b(a, b, count, pos);
+		hole = find_a_hole(next_nbr, *a);
+		pos = find_pos_nbr(hole, *a, *b);
+		move_up_a(a, b, count, pos);
 		exec("pa\n", a, b, VER);
 		count[0]++;
 		count[1]--;
