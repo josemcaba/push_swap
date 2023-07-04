@@ -6,34 +6,11 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:56 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:02:00 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// int	find_b_hole(int nbr, t_stack *b)
-// {
-// 	int	min;
-// 	int	max;
-// 	int	prev;
-// 	int	next;
-
-// 	find_min_max(nbr, b, &min, &max);
-// 	prev = min;
-// 	next = max;
-// 	while (b)
-// 	{
-// 		if ((prev < b->nbr) && (b->nbr < nbr))
-// 			prev = b->nbr;
-// 		if ((nbr < b->nbr) && (b->nbr < next))
-// 			next = b->nbr;
-// 		b = b->next;
-// 	}
-// 	if (prev == nbr)
-// 		return (max);
-// 	return (prev);
-// }
 
 int	find_a_hole(int nbr, t_stack *a)
 {
@@ -128,7 +105,7 @@ int	find_pos_nbr(int nbr, t_stack *a, t_stack *b)
 	return (0);
 }
 
-void	sort(t_stack **a, t_stack **b, int *vector, int *count)
+void	sort(t_stack **a, t_stack **b, int *count)
 {
 	int	pos;
 	int	next_nbr;
@@ -147,6 +124,5 @@ void	sort(t_stack **a, t_stack **b, int *vector, int *count)
 		count[0]++;
 		count[1]--;
 	}
-	pos = find_pos_nbr(vector[count[0] - 1], *a, *b);
-	move_up_a(a, b, count, pos);
+	finish(a, b, count);
 }

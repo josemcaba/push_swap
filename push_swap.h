@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 23:41:18 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:57:03 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	drotate(t_stack **a, t_stack **b, int ver);
 void	reverse(t_stack **p, char *order, int ver);
 void	dreverse(t_stack **a, t_stack **b, int ver);
 int		check_order(t_stack *a, t_stack *b);
-void	sort(t_stack **a, t_stack **b, int *vector, int *count);
+void	sort(t_stack **a, t_stack **b, int *count);
 t_stack	*get_blast(t_stack *p);
 int		steps_to_top(int count, int pos);
 void	free_argv(char **argv);
@@ -48,5 +48,7 @@ int		get_next_nbr(t_stack *a, t_stack *b, int *count);
 int		find_pos_nbr(int nbr, t_stack *a, t_stack *b);
 void	find_min_max(int nbr, t_stack *b, int *min, int *max);
 void	set_up(t_stack **a, t_stack **b, int *count);
+void	move_up_a(t_stack **a, t_stack **b, int *count, int pos);
+void	finish(t_stack **a, t_stack **b, int *count);
 
 #endif
