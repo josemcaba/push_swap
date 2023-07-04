@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 20:15:11 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:08:27 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		find_a_hole(int nbr, t_stack *b);
 int		get_next_nbr(t_stack *a, t_stack *b, int *count);
 int		find_pos_nbr(int nbr, t_stack *a, t_stack *b);
 void	find_min_max(int nbr, t_stack *b, int *min, int *max);
-void	set_up(t_stack **a, t_stack **b, int *count);
+void	setup(t_stack **a, t_stack **b, int *count);
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos);
 void	finish(t_stack **a, t_stack **b, int *count);
 void	let_move(t_stack **a, t_stack **b, int *move);

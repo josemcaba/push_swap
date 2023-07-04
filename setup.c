@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 20:17:16 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:56:57 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,26 @@ void	sort_3_nbr(t_stack **a, t_stack **b)
 		exec("sa\n", a, b, VER);
 }
 
-void	set_up(t_stack **a, t_stack **b, int *count)
+void	finish(t_stack **a, t_stack **b, int *count)
+{
+	int	pos;
+	int	min;
+
+	min = find_min(*a);
+	pos = find_pos_nbr(min, *a, *b);
+	move_up_a(a, b, count, pos);
+}
+
+void	setup(t_stack **a, t_stack **b, int *count)
 {
 	int	median;
 
-	median = find_median(*a, count[0]);
 	if (!check_order(*a, *b) && (count[0] == 2))
+	{
 		exec("sa\n", a, b, VER);
+		return ;
+	}
+	median = find_median(*a, count[0]);
 	while (!check_order(*a, *b) && (count[0] > 3))
 	{
 		exec("pb\n", a, b, VER);
@@ -69,14 +82,4 @@ void	set_up(t_stack **a, t_stack **b, int *count)
 			exec("rb\n", a, b, VER);
 	}
 	sort_3_nbr(a, b);
-}
-
-void	finish(t_stack **a, t_stack **b, int *count)
-{
-	int	pos;
-	int	min;
-
-	min = find_min(*a);
-	pos = find_pos_nbr(min, *a, *b);
-	move_up_a(a, b, count, pos);
 }

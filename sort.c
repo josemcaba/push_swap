@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 17:29:43 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:48:55 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	sort(t_stack **a, t_stack **b, int *count)
 	int	hole;
 	int	move[2];
 
-	set_up(a, b, count);
+	setup(a, b, count);
 	while (!check_order(*a, *b) && count[1])
 	{
 		next_nbr = get_next_nbr(*a, *b, count);
