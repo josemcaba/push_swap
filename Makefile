@@ -6,7 +6,7 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/06/08 23:42:11 by jocaball         ###   ########.fr        #
+#    Updated: 2023/07/04 17:31:32 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC	= 	push_swap.c			\
 		sort.c				\
 		steps.c 			\
 		exec.c				\
-		setup.c
+		setup.c				\
+		let_move.c
 
 SRC_BONUS	= 	checker.c			\
 				parser.c			\
@@ -47,7 +48,8 @@ SRC_BONUS	= 	checker.c			\
 				sort.c				\
 				steps.c 			\
 				exec.c				\
-				setup.c
+				setup.c				\
+				let_move.c
 		
 OBJ = $(SRC:%.c=%.o) $(SRC_BONUS:%.c=%.o)
 

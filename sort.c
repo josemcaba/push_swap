@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 14:02:00 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:29:43 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,16 @@ void	move_up_a(t_stack **a, t_stack **b, int *count, int pos)
 	}
 }
 
-void	move_up_b(t_stack **a, t_stack **b, int *count, int pos)
+int	move_up(int stack, int count, int pos)
 {
 	int	steps;
 
-	pos *= -1;
+	steps = 0;
+	if (stack == 1)
+		pos *= -1;
 	if (pos > 1)
-	{
-		steps = steps_to_top(count[1], pos);
-		while (steps)
-		{
-			if (steps > 0)
-			{
-				exec("rb\n", a, b, VER);
-				steps--;
-			}
-			else
-			{
-				exec("rrb\n", a, b, VER);
-				steps++;
-			}
-		}
-	}
+		steps = steps_to_top(count, pos);
+	return (steps);
 }
 
 int	find_pos_nbr(int nbr, t_stack *a, t_stack *b)
@@ -110,17 +98,18 @@ void	sort(t_stack **a, t_stack **b, int *count)
 	int	pos;
 	int	next_nbr;
 	int	hole;
+	int	move[2];
 
 	set_up(a, b, count);
 	while (!check_order(*a, *b) && count[1])
 	{
 		next_nbr = get_next_nbr(*a, *b, count);
 		pos = find_pos_nbr(next_nbr, *a, *b);
-		move_up_b(a, b, count, pos);
+		move[1] = move_up(1, count[1], pos);
 		hole = find_a_hole(next_nbr, *a);
 		pos = find_pos_nbr(hole, *a, *b);
-		move_up_a(a, b, count, pos);
-		exec("pa\n", a, b, VER);
+		move[0] = move_up(0, count[0], pos);
+		let_move(a, b, move);
 		count[0]++;
 		count[1]--;
 	}

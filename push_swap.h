@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 13:57:03 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:30:29 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 # ifndef VER_CHECK
-#  define VER_CHECK 1
+#  define VER_CHECK 0
 # endif
 
 # define VER 1
@@ -50,5 +50,6 @@ void	find_min_max(int nbr, t_stack *b, int *min, int *max);
 void	set_up(t_stack **a, t_stack **b, int *count);
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos);
 void	finish(t_stack **a, t_stack **b, int *count);
+void	let_move(t_stack **a, t_stack **b, int *move);
 
 #endif
