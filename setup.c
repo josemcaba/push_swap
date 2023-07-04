@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 13:59:50 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:48:06 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	sort_3_nbr(t_stack **a, t_stack **b)
 
 void	set_up(t_stack **a, t_stack **b, int *count)
 {
+	int	avrg;
+
+	avrg = (find_min(*a) + find_max(*a)) / 2;
 	if (!check_order(*a, *b) && (count[0] == 2))
 		exec("sa\n", a, b, VER);
 	while (!check_order(*a, *b) && (count[0] > 3))
@@ -62,6 +65,8 @@ void	set_up(t_stack **a, t_stack **b, int *count)
 		exec("pb\n", a, b, VER);
 		count[0]--;
 		count[1]++;
+		if ((count[1] > 2) && (*b)->nbr > avrg)
+			exec("rb\n", a, b, VER);
 	}
 	sort_3_nbr(a, b);
 }
