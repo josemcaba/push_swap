@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 17:30:29 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:15:11 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	set_up(t_stack **a, t_stack **b, int *count);
 void	move_up_a(t_stack **a, t_stack **b, int *count, int pos);
 void	finish(t_stack **a, t_stack **b, int *count);
 void	let_move(t_stack **a, t_stack **b, int *move);
+int		find_median(t_stack *a, int count);
 
 #endif
