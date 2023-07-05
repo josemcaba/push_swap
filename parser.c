@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:32:02 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 23:44:10 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:39:15 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,64 +58,67 @@ static int	check_dup(int argc, char **argv)
 	return (0);
 }
 
-static char	**split_argv(int *argc, char **argv)
+char	*join_new_vals(char **new_vals, char *cmd_line)
 {
-	char	*new_argv;
+	int		j;
+	char	*tmp_line;
 
-	new_argv = ft_strjoin("push_swap ", argv[1]);
-	if (!new_argv)
-		return (NULL);
-	argv = ft_split(new_argv, ' ');
-	if (!argv)
+	j = 0;
+	while (new_vals[j])
 	{
-		free(new_argv);
-		return (NULL);
+		tmp_line = ft_strjoin(cmd_line, new_vals[j]);
+		if (!tmp_line)
+			exit(0);
+		free(cmd_line);
+		free(new_vals[j]);
+		cmd_line = ft_strjoin(tmp_line, " ");
+		if (!cmd_line)
+			exit(0);
+		free(tmp_line);
+		j++;
 	}
-	free(new_argv);
-	*argc = 0;
-	while (argv[*argc])
-		(*argc)++;
-	return (argv);
+	return (cmd_line);
 }
 
-void	free_argv(char **argv)
+void	split_argv(int argc, char ***argv)
 {
-	int	i;
+	char	*cmd_line;
+	int		i;
+	char	**new_vals;
 
+	cmd_line = ft_strjoin("push_swap", " ");
+	if (!cmd_line)
+		exit(0);
 	i = 0;
-	while (argv[i])
+	while (++i < argc)
 	{
-		free(argv[i]);
-		i++;
+		new_vals = ft_split((*argv)[i], ' ');
+		if (!new_vals)
+			exit(0);
+		cmd_line = join_new_vals(new_vals, cmd_line);
+		free(new_vals);
 	}
-	free(argv);
+	*argv = ft_split(cmd_line, ' ');
+	if (!(*argv))
+		exit(0);
+	free(cmd_line);
 }
 
-int	parse_argv(int *argc, char ***argv)
+void	parse_argv(int *argc, char ***argv)
 {
-	int	err;
-	int	flag_str_argv;
+	int		err;
 
-	flag_str_argv = 0;
-	if (*argc == 2)
-	{
-		flag_str_argv = 1;
-		*argv = split_argv(argc, *argv);
-		if (!(*argv) || (*argc == 1))
-		{
-			write(2, "Error\n", 6);
-			exit (0);
-		}
-	}
+	split_argv(*argc, argv);
+	*argc = 0;
+	while ((*argv)[*argc])
+		(*argc)++;
 	err = check_int_nbrs(*argc, *argv);
 	if (!err)
 		err = check_dup(*argc, *argv);
 	if (err)
 	{
-		if (flag_str_argv)
-			free_argv(*argv);
+		free_argv(*argv);
 		write(2, "Error\n", 6);
 		exit (0);
 	}
-	return (flag_str_argv);
 }

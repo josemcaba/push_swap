@@ -6,7 +6,7 @@
 #    By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 12:40:42 by jocaball          #+#    #+#              #
-#    Updated: 2023/07/04 20:15:47 by jocaball         ###   ########.fr        #
+#    Updated: 2023/07/05 19:14:07 by jocaball         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,13 +76,23 @@ clean :
 	$(MAKE_LIBFT) clean 
 
 fclean : clean
-	rm -f $(NAME) $(NAME_BONUS)
+	rm -f $(NAME) $(NAME_BONUS) $(NAME_REBONUS)
 	$(MAKE_LIBFT) fclean
 
 re : fclean all
 
-bonus : make_ft $(NAME_BONUS) 
+bonus : make_ft $(NAME_BONUS)
 
 $(NAME_BONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
 	@$(CC) $(CFLAGS) $(SRC_BONUS) $(LIBFT) -o $(NAME_BONUS)
 	@echo "$(GREEN)\n-------> Program $(YELLOW)$(NAME_BONUS)$(GREEN) has been created\n$(DEF_COLOR)"
+
+
+NAME_REBONUS = rechecker
+
+rebonus : make_ft $(NAME_REBONUS) 
+	
+$(NAME_REBONUS): $(LIBFT) $(SRC_BONUS) $(HDR)
+	@$(CC) $(CFLAGS) -DVER_CHECK=1 $(SRC_BONUS) $(LIBFT) -o $(NAME_REBONUS)
+	@echo "$(GREEN)\n-------> Program $(YELLOW)(re)$(NAME_BONUS)$(GREEN) has been created\n$(DEF_COLOR)"
+

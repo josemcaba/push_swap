@@ -107,7 +107,7 @@ fi
 
 rm -rf test_check.txt
 
-./push_swap "" > /dev/null 2> test_check.txt
+./push_swap "-" > /dev/null 2> test_check.txt
 if [ -s "$FICHERO" ];then
 while IFS= read -r line
 do

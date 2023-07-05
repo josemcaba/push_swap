@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:42:45 by jocaball          #+#    #+#             */
-/*   Updated: 2023/07/04 22:08:27 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:57:25 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_stack
 # define VER 1
 # define NVER 0
 
-int		parse_argv(int *argc, char ***argv);
+void	parse_argv(int *argc, char ***argv);
 t_stack	*load_nodes(int argc, char **argv);
 int		exec(char *order, t_stack **a, t_stack **b, int ver);
 void	push(t_stack **dst, t_stack **src, char *order, int ver);
