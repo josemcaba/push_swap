@@ -6,7 +6,7 @@
 /*   By: jocaball <jocaball@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 21:35:20 by jocaball          #+#    #+#             */
-/*   Updated: 2023/06/09 23:44:04 by jocaball         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:35:23 by jocaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	main(int argc, char *argv[])
 	b = NULL;
 	err = play(&a, &b, VER_CHECK);
 	if (err)
-		write(2, "\033[0;93mError\033[0;39m\n", 6);
+		write(2, "Error\n", 6);
 	else if (check_order(a, b))
-		ft_printf("\033[1;92mOK\033[0;39m\n");
+		ft_printf("OK\n");
 	else
-		ft_printf("\033[1;91mKO\033[0;39m\n");
+		ft_printf("KO\n");
 	free(nodes);
 	if (flag_str_argv)
 		free_argv(argv);
